@@ -16,6 +16,11 @@ const routes = [
       }
     ]
   }
+  // {
+  //   path: '/home',
+  //   name: 'home',
+  //   component: () => import('@/views/homeIndex')
+  // }
 ]
 
 const router = new VueRouter({

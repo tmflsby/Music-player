@@ -15,13 +15,12 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   name: 'FindSwiper',
-  props: {
-    swiperList: Array
-  },
   data () {
     return {
+      swiperList: [],
       swiperOption: {
         pagination: {
           el: '.swiper-pagination'
@@ -34,6 +33,20 @@ export default {
         }
       }
     }
+  },
+  methods: {
+    getFindInfo () {
+      axios.get('http://140.143.128.100:3000/banner?type=1').then(this.getFindInfoSuc)
+    },
+    getFindInfoSuc (res) {
+      if (res.status === 200 && res.statusText === 'OK') {
+        res = res.data.banners
+        this.swiperList = res
+      }
+    }
+  },
+  mounted () {
+    this.getFindInfo()
   }
 }
 </script>
@@ -58,7 +71,7 @@ export default {
     width: 100%;
     height: 100%;
   }
-  .title{
+  .title {
     position: absolute;
     right: 0;
     bottom: 0;
