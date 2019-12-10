@@ -15,12 +15,12 @@ const routes = [
         component: () => import('@/views/findIndex')
       }
     ]
+  },
+  {
+    path: '/home',
+    name: 'home',
+    component: () => import('@/views/homeIndex')
   }
-  // {
-  //   path: '/home',
-  //   name: 'home',
-  //   component: () => import('@/views/homeIndex')
-  // }
 ]
 
 const router = new VueRouter({

@@ -28,7 +28,12 @@ export default {
   box-sizing: border-box;
   width: 100%;
   height: 0.8rem;
-  padding: 0 0.1rem;
+  padding: 0 0.23rem;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background-color: #fff;
   display: flex;
   .nav-left {
     flex: 2;

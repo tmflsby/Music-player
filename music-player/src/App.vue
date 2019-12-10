@@ -19,7 +19,6 @@ export default {
 
 <style lang="less">
 #app {
-  box-sizing: border-box;
-  padding: 0.13rem;
+  background: #fff;
 }
 </style>
