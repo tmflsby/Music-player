@@ -72,8 +72,23 @@ let homeList = [{
   num: 0
 }]
 
+let loginIcons = [{
+  icon: 'iconwodexiaoxi',
+  text: '我的消息'
+}, {
+  icon: 'iconyonghu',
+  text: '我的好友'
+}, {
+  icon: 'iconpifu',
+  text: '个性皮肤'
+}, {
+  icon: 'icontinggeshiqu40x40',
+  text: '听歌识曲'
+}]
+
 export default {
   homeIcons,
   findIcons,
-  homeList
+  homeList,
+  loginIcons
 }

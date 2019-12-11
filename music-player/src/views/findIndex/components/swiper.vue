@@ -52,12 +52,12 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import url("~@/assets/global.less");
+@import url("~@/assets/styles/global.less");
 .banner-container /deep/ .swiper-pagination-bullet-active {
   background: @bgcolor;
 }
 .swiper-container {
-  border-radius: 0.15rem;
+  border-radius: @imgBorderRadius;
 }
 .banner-container {
   box-sizing: border-box;
@@ -66,7 +66,6 @@ export default {
   width: 100%;
   height: 0;
   padding-bottom: 40%;
-  border-radius: 0.15rem;
   .banner-img {
     width: 100%;
     height: 100%;
@@ -79,7 +78,7 @@ export default {
     font-size: smaller;
     padding: 3px 6px;
     opacity: 0.8;
-    border-top-left-radius: 0.15rem;
+    border-top-left-radius: @imgBorderRadius;
   }
 }
 </style>

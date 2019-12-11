@@ -23,10 +23,10 @@ export default {
 </script>
 
 <style lang="less" scoped>
+@import url("~@/assets/styles/global.less");
 @import url("https://at.alicdn.com/t/font_1306085_nryhea053g.css");
 .list-item {
-  display: flex;
-  justify-content: space-between;
+  .flex-between();
   margin: 0.1rem 0;
   height: 0.76rem;
   line-height: 0.76rem;
@@ -36,9 +36,7 @@ export default {
   .wrapper {
     flex: 1;
     .num {
-      font-size: smaller;
-      margin-left: 0.2rem;
-      color: #ccc;
+      .num();
     }
   }
   .iconfont {

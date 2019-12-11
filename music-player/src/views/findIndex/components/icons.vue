@@ -24,30 +24,25 @@ export default {
 </script>
 
 <style lang="less" scoped>
+@import url("~@/assets/styles/global.less");
 @import url("http://at.alicdn.com/t/font_1295705_hdzk2gocoyo.css");
 .container {
-  display: flex;
+  .flex-around();
   width: 100%;
   height: 1.6rem;
-  justify-content: space-around;
   align-items: center;
   padding: 0.2rem 0 0.3rem;
   .icon-wrapper {
+    .flex-around();
     box-sizing: border-box;
-    display: flex;
     height: 100%;
     flex-direction: column;
-    justify-content: space-around;
     align-items: center;
     .icon {
-      width: 0.9rem;
-      height: 0.9rem;
-      border-radius: 50%;
-      background: linear-gradient(to right, #ff5a4c, #ff1d11);
-      text-align: center;
-      line-height: 0.9rem;
-      position: relative;
-      color: #fff;
+      width: @iconWidth*0.9;
+      height: @iconWidth*0.9;
+      line-height: @iconWidth*0.9;
+      .icons();
       .iconfont{
         font-size: 0.5rem;
       }
@@ -59,7 +54,7 @@ export default {
       }
     }
     .icon-text {
-      font-size: 0.24rem;
+      font-size: @iconText;
     }
   }
 }
