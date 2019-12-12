@@ -2,36 +2,41 @@
   <div class="login-menu">
     <LoginTop></LoginTop>
     <LoginIcons></LoginIcons>
-    <LoginList></LoginList>
+    <LoginIconsTop></LoginIconsTop>
+    <LoginIconsBottom></LoginIconsBottom>
+    <LoginBottom></LoginBottom>
   </div>
 </template>
 
 <script>
 import LoginTop from './login-top'
 import LoginIcons from './login-icons'
-import LoginList from './login-list'
+import LoginIconsTop from './login-icons-top'
+import LoginIconsBottom from './login-icons-bottom'
+import LoginBottom from './login-bottom'
 export default {
   name: 'login',
   components: {
     LoginTop,
     LoginIcons,
-    LoginList
-  },
-  props: {
-    left: [String, Number]
+    LoginIconsTop,
+    LoginIconsBottom,
+    LoginBottom
   }
 }
 </script>
 
 <style lang="less" scoped>
+@import url('//at.alicdn.com/t/font_1322263_qmujtttwdn.css');
 .login-menu {
-    position: absolute;
-    z-index: 11;
-    height: 100vh;
-    overflow-y:auto;
-    top: 0;
-    left: 0;
-    width: 6rem;
-    background: #fff;
+  // 左侧侧边栏 宽度设置为6rem
+  position: absolute;
+  z-index: 11;
+  height: 100vh;
+  overflow-y:auto;
+  top: 0;
+  left: 0;
+  width: 6rem;
+  background: #fff;
 }
 </style>

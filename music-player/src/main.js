@@ -6,7 +6,6 @@ import VueAwesomeSwiper from 'vue-awesome-swiper'
 import ModalHelper from './assets/utils/modalScroll'
 
 import 'swiper/dist/css/swiper.css'
-import '@/assets/styles/global.css'
 
 Vue.use(VueAwesomeSwiper /* { default global options } */)
 

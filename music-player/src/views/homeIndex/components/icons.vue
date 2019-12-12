@@ -4,13 +4,13 @@
       <ul class="icons-group">
         <li class="icon-list" v-for="(item, index) in homeIcons" :key="index">
           <div class="icon">
-            <i class="iconfont" :class="item.icon"></i>
+            <i class="home" :class="item.icon"></i>
           </div>
           <span class="icon-text">{{item.text}}</span>
         </li>
         <li class="icon-list">
           <div class="icon exit-icon">
-            <i class="iconfont iconnav"></i>
+            <i class="home icontoggle"></i>
           </div>
           <span class="icon-text">编辑</span>
         </li>
@@ -20,28 +20,33 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { homeIcons } from '@/getInfos/getData.js'
 export default {
   name: 'HomeIcons',
   data () {
     return {
-
+      homeIcons
     }
   },
-  computed: {
-    ...mapState(['homeIcons'])
+  mounted () {
+    this.iniData()
+  },
+  methods: {
+    async iniData () {
+      this.homeIcons = homeIcons()
+    }
   }
 }
 </script>
 
 <style lang="less" scoped>
 @import url("~@/assets/styles/global.less");
-@import url("https://at.alicdn.com/t/font_1301440_eoa9vxvejgq.css");
 .wrapper {
   box-sizing: border-box;
   padding: 0.2rem 0 0;
   overflow: hidden;
   height: 1.8rem;
+  // 定义可左右滑动的图标组
   .container {
     overflow-x: scroll;
     .icons-group {
@@ -63,7 +68,7 @@ export default {
           height: @iconWidth * 0.72;
           line-height: @iconWidth * 0.72;
           .icons();
-          .iconfont {
+          .home {
             font-size: 0.4rem;
           }
         }
