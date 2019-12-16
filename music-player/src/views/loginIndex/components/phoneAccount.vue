@@ -66,7 +66,7 @@ export default {
      * 给 叉  添加点击事件，点击清空 input
      */
     clearInput () {
-      this.$data.phone = ''
+      this.phone = ''
       this.canShow()
     },
     /**
@@ -75,11 +75,11 @@ export default {
      * 空的时候input有opacity
      */
     canShow () {
-      this.$data.isShow = this.$data.phone
-      if (this.$data.isShow) {
-        this.$data.opacity = 1
+      this.isShow = this.phone
+      if (this.isShow) {
+        this.opacity = 1
       } else {
-        this.$data.opacity = 0.5
+        this.opacity = 0.5
       }
     },
     /**
@@ -88,14 +88,14 @@ export default {
     alertEvent () {
       // 如果输入内容不合法，提示组件显示
       // 显示一段时间后隐藏
-      if (this.$data.timer) {
-        clearTimeout(this.$data.timer)
-        this.$data.timer = null
+      if (this.timer) {
+        clearTimeout(this.timer)
+        this.timer = null
       }
-      this.$data.alert = true
+      this.alert = true
       // 1s 后隐藏组件
-      this.$data.timer = setTimeout(() => {
-        this.$data.alert = false
+      this.timer = setTimeout(() => {
+        this.alert = false
       }, 1000)
     },
     /**
@@ -103,19 +103,19 @@ export default {
      * 点击调用事件 进行判断
      */
     clickEvent () {
-      if (this.$data.flag) {
+      if (this.flag) {
         // 将按钮禁用
-        this.$data.flag = false
-        if (this.contextIsTrue(this.$data.phone)) {
+        this.flag = false
+        if (this.contextIsTrue(this.phone)) {
           // 如果输入内容合法 进行下一步操作
-          this.determineRegistered(this.$data.phone)
+          this.determineRegistered(this.phone)
         } else {
           // 如果输入内容不合法
           this.alertEvent()
           // 输入框内容为空
           this.clearInput()
           // 按钮恢复
-          this.$data.flag = true
+          this.flag = true
         }
       }
     },
@@ -132,16 +132,16 @@ export default {
             // 携带参数（手机号）跳转
             this.$router.push({
               path: '/pwd',
-              query: { phone: self.$data.phone }
+              query: { phone: self.phone }
             })
           } else if (res.data.exist === -1) {
             // 没有注册 跳转到接收验证码页面
             this.$router.push({
               path: '/verify',
-              query: { phone: self.$data.phone }
+              query: { phone: self.phone }
             })
           }
-          this.$data.flag = true
+          this.flag = true
         })
     }
   },
@@ -150,7 +150,7 @@ export default {
    * 离开时清除定时器，有利于内存释放
    */
   destroyed () {
-    clearTimeout(this.$data.timer)
+    clearTimeout(this.timer)
   },
   created () {
     this.changFocus()

@@ -23,7 +23,7 @@
         </div>
         <div class="heart">
           <span class="heart-text">
-            <i class="home iconxintiao"></i>心动模式
+            <i class="home icondiandiandian"></i>
           </span>
         </div>
       </li>
@@ -40,7 +40,7 @@
       </div>
     </div>
     <ul class="song-group">
-    <li class="song-list" v-for="(item, index) in favoritesList" :key="index">
+      <li class="song-list" v-for="(item, index) in favoritesList" :key="index">
         <div class="list-img">
           <img :src="item.coverImgUrl">
         </div>
@@ -86,6 +86,7 @@ export default {
   mounted () {
     this.favoritesIndex = this.index.favoritesNum
     this.createIndex = this.index.createNum
+    this.getPlaylist(this.$store.state.accountUid)
   },
   watch: {
     index: {
@@ -98,7 +99,9 @@ export default {
     }
   },
   methods: {
-    // 获取用户歌单
+    /**
+     * 获取用户歌单
+     */
     getPlaylist (id) {
       api.playlistFn(id).then(res => {
         let data = res.data
@@ -117,8 +120,6 @@ export default {
       let len = this.createIndex + this.favoritesIndex
       this.createList = arr.slice(0, from)
       this.favoritesList = arr.slice(from, len)
-      console.log(this.createList)
-      console.log(this.favoritesList)
     }
   }
 }
@@ -163,7 +164,7 @@ export default {
       text-align: center;
       margin-right: 0.3rem;
       overflow: hidden;
-      img{
+      img {
         width: 100%;
         height: 100%;
       }

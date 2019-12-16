@@ -10,6 +10,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import DefaultNav from '@/views/nav'
 import HomeIcons from './components/icons'
 import HomeList from './components/homeList'
@@ -46,6 +47,9 @@ export default {
      * @param id 用户 uid
      */
     getRecord (id) {
+      // 当用户刷新页面时 vuex 状态失效，采用本地存储
+      let uid = localStorage.getItem('accountUid')
+      id = id || uid
       api
         .userRecordFn(id)
         .then(res => {
@@ -73,26 +77,27 @@ export default {
       })
     }
   },
-  created () {
-    // 获取登陆状态
-    api.loginStatusFn()
-      .then(res => {
-        let userId = res.data.profile.userId
-        if (res.data.code === 200) {
-          // 成功登陆
-          // 修改状态为 1
-          this.$store.commit('LOGIN_STATE')
-          // 存取用户 uid信息
-          this.$store.commit('ACCOUNT_UID', userId)
-          // 获取用户信息
-          this.getInfo()
-          // 获取用户播放记录
-          this.getRecord(userId)
-        }
-      })
-      .catch(err => {
-        console.log(err)
-      })
+  computed: {
+    ...mapGetters({
+      loginState: 'LOGIN_STATE',
+      accountUid: 'ACCOUNT_UID'
+    })
+  },
+  activated () {
+    /**
+     *
+     * 需要增加判断，要不然每次跳转到这个路由都会有事件
+     *
+     */
+    // 获取用户登录成功后储存的登录标志
+    let getFlag = localStorage.getItem('loginState')
+    if (this.loginState || getFlag) {
+      // 用户已经登录
+      // 获取用户信息
+      this.getInfo()
+      // 获取用户播放记录
+      this.getRecord(this.accountUid)
+    }
   }
 }
 </script>

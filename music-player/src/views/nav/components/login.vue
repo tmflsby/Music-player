@@ -28,7 +28,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import url('//at.alicdn.com/t/font_1322263_qmujtttwdn.css');
+@import url('//at.alicdn.com/t/font_1322263_fy4q7rzis3b.css');
 .login-menu {
   // 左侧侧边栏 宽度设置为6rem
   position: absolute;

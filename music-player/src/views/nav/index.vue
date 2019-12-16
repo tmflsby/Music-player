@@ -25,14 +25,14 @@
 
 <script>
 import Login from './components/login'
-import { mapState, mapMutations } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 export default {
   name: 'DefaultNav',
   components: {
     Login
   },
   computed: {
-    ...mapState(['loginPage'])
+    ...mapGetters({ loginPage: 'LOGIN_PAGE' })
   },
   methods: {
     ...mapMutations(['SHOW_LOGIN']),

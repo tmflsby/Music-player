@@ -18,11 +18,15 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 export default {
   name: 'LoginBottom',
   computed: {
-    ...mapState(['iconyueliang1', 'icontaiyang', 'modeText'])
+    ...mapGetters({
+      iconyueliang1: 'ICON_NIGHT',
+      icontaiyang: 'LOGIN_STATE',
+      modeText: 'MODE_TEXT'
+    })
   },
   methods: {
     ...mapMutations(['TOGGLE_MODE'])
