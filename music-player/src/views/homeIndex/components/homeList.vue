@@ -1,11 +1,12 @@
+<!-- home页面 列表组件 -->
 <template>
   <div class="container pd13">
     <ul>
-      <li v-for="(item, index) in homeList" :key="index" class="list-item">
+      <li v-for="(item, index) in homeListContext" :key="index" class="list-item">
         <i class="home" :class="item.icon"></i>
         <div class="border-bottom wrapper">
           <span class="list-content">{{item.text}}</span>
-          <span class="num">({{item.num}})</span>
+          <span class="num" ref="homeNum">({{item.num}})</span>
         </div>
       </li>
     </ul>
@@ -18,15 +19,43 @@ export default {
   name: 'HomeList',
   data () {
     return {
-      homeList
+      homeListContext: []
     }
   },
+  props: ['num'],
   mounted () {
-    this.iniData()
+    // 存取props 传过来的数据
+    this.recordNum = this.num.recordNum
+    this.djNum = this.num.djNum
+    // 首先获取到初始化的数据，防止页面坍塌
+    this.homeListContext = homeList()
+  },
+  watch: {
+    // props 异步请求，初始加载时无法获取到props传过来的值
+    num: {
+      // 为了发现对象内部值的变化，可以在选项参数中指定 deep: true 。
+      // 这样设置后 props 成功可以获取到
+      deep: true,
+      handler (val, oldVal) {
+        this.recordNum = val.recordNum
+        this.djNum = val.djNum
+        this.setData()
+      }
+    }
   },
   methods: {
-    async iniData () {
-      this.homeList = homeList()
+    /**
+     * 对传过来的原数据进行修改
+     */
+    setData () {
+      // 初始化图标和文字
+      let item = homeList()
+      /**
+       * 通过筛选 对传入的数据进行修改
+       */
+      this.$set(item[1], 'num', this.recordNum)
+      this.$set(item[3], 'num', this.djNum)
+      this.homeListContext = item
     }
   }
 }

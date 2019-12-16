@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    <DefaultNav></DefaultNav>
     <keep-alive>
       <router-view />
     </keep-alive>
@@ -8,12 +7,8 @@
 </template>
 
 <script>
-import DefaultNav from '@/views/nav/index'
 export default {
-  name: 'App',
-  components: {
-    DefaultNav
-  }
+  name: 'App'
 }
 </script>
 

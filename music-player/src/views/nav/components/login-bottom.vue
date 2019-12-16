@@ -1,8 +1,10 @@
+<!-- 侧边栏切换日夜模式 -->
 <template>
   <div class="wrapper border-top">
     <span @click="TOGGLE_MODE">
       <i class="login" :class="{ iconyueliang1,  icontaiyang }"></i>
-      <span>{{ modeText }}间模式</span>
+      <!-- 在 vue 中，通过 v-once 指令，可以有效提高静态内容展示效率 -->
+      <span v-once>{{ modeText }}间模式</span>
     </span>
     <span>
       <i class="login iconshezhi"></i>

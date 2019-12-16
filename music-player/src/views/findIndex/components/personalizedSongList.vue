@@ -1,3 +1,4 @@
+<!-- find页面推荐歌单组件 -->
 <template>
   <div class="wrapper pd23">
     <div class="title">
@@ -32,7 +33,9 @@ export default {
   computed: {
     // 将播放数的数字转换为以万为单位
     playCount () {
+      // 用来存放转换后的数据
       const playCount = []
+      // 遍历当前数据
       this.songList.forEach(element => {
         playCount.push(
           element.playCount > 10000 ? Math.floor(element.playCount / 10000) + '万' : element.playCount

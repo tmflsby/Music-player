@@ -1,3 +1,4 @@
+<!-- find页面swiper轮播图组件 -->
 <template>
   <div class="banner-container">
     <swiper :options="swiperOption" v-if="swiperList.length > 0">
@@ -20,15 +21,18 @@ export default {
   name: 'FindSwiper',
   data () {
     return {
+      // 存放图片组信息
       swiperList: [],
       swiperOption: {
         pagination: {
           el: '.swiper-pagination'
         },
+        // 自动轮播
         loop: true,
         autoplay: {
-          // 3000毫秒自动播放
+          // 5000毫秒自动播放
           delay: 5000,
+          // 用户操作swiper之后自动切换不会停止，每次都会重新启动autoplay。
           disableOnInteraction: false
         }
       }

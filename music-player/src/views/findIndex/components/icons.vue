@@ -1,7 +1,9 @@
+<!-- find页面icon组件 -->
 <template>
   <div class="container border-bottom">
     <div class="icon-wrapper" v-for="(item, index) in findIcons" :key="index">
       <div class="icon">
+        <!-- 当图标文字是 每日推荐 则显示这一行 -->
         <span class="today" v-if="item.text === '每日推荐'">{{today}}</span>
         <i class="find" :class="item.icon"></i>
       </div>

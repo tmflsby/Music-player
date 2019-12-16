@@ -1,3 +1,4 @@
+<!-- 侧边栏页面组件 -->
 <template>
   <div class="login-menu">
     <LoginTop></LoginTop>

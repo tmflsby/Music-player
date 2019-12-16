@@ -1,5 +1,7 @@
+<!-- find页面组件 -->
 <template>
   <div class="container">
+    <DefaultNav></DefaultNav>
     <FindSwiper></FindSwiper>
     <FindIcon></FindIcon>
     <PersonalizedSongList></PersonalizedSongList>
@@ -8,6 +10,7 @@
 </template>
 
 <script>
+import DefaultNav from '@/views/nav'
 import FindSwiper from './components/swiper'
 import FindIcon from './components/icons'
 import PersonalizedSongList from './components/personalizedSongList'
@@ -15,6 +18,7 @@ import NewDish from './components/newDish'
 export default {
   name: 'FindIndex',
   components: {
+    DefaultNav,
     FindSwiper,
     FindIcon,
     PersonalizedSongList,

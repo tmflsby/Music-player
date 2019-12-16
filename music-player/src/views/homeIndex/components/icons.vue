@@ -1,3 +1,4 @@
+<!-- home页面icon组件 -->
 <template>
   <div class="wrapper border-bottom">
     <div class="container ">
@@ -48,8 +49,10 @@ export default {
   height: 1.8rem;
   // 定义可左右滑动的图标组
   .container {
+    // 横向滚动条
     overflow-x: scroll;
     .icons-group {
+      // flex布局  溢出不换行
       height: 1.5rem;
       display: flex;
       flex-wrap: nowrap;
@@ -58,6 +61,7 @@ export default {
       width: auto;
       min-width: 100%;
       .icon-list {
+        // 每项icon样式
         min-width: 1.6rem;
         height: 100%;
         .flex-around();
