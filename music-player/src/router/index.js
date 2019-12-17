@@ -26,20 +26,26 @@ const routes = [
     name: 'login',
     component: () => import('@/views/loginIndex')
   },
+  // 登录的一系列路由
   {
     path: '/phone',
-    name: 'phoneAccount',
-    component: () => import('@/views/loginIndex/components/phoneAccount.vue')
-  },
-  {
-    path: '/pwd',
-    name: 'phonePwd',
-    component: () => import('@/views/loginIndex/components/phonePwd.vue')
-  },
-  {
-    path: '/verify',
-    name: 'phoneVerify',
-    component: () => import('@/views/loginIndex/components/phoneVerify.vue')
+    component: () => import('@/views/loginIndex/components/accountLogin.vue'),
+    children: [
+      {
+        path: '',
+        component: () => import('@/views/loginIndex/components/phoneAccount.vue')
+      },
+      {
+        path: '/pwd',
+        name: 'phonePwd',
+        component: () => import('@/views/loginIndex/components/phonePwd.vue')
+      },
+      {
+        path: '/verify',
+        name: 'phoneVerify',
+        component: () => import('@/views/loginIndex/components/phoneVerify.vue')
+      }
+    ]
   }
 ]
 

@@ -1,7 +1,6 @@
 <!-- 手机号登录,登录密码页面 -->
 <template>
   <div class="wrapper">
-    <LoginNav></LoginNav>
     <div class="inp border-bottom">
       <input type="password" v-model="pwd" placeholder="请输入密码" ref="inputs" autofocus="autofocus" />
       <router-link to="/forget">忘记密码</router-link>
@@ -14,7 +13,6 @@
 </template>
 
 <script>
-import LoginNav from '@/base/generalNav'
 import LoginBtn from '@/base/button'
 import Alert from '@/base/alert'
 import Loading from '@/base/loading'
@@ -32,7 +30,6 @@ export default {
     }
   },
   components: {
-    LoginNav,
     LoginBtn,
     Alert,
     Loading
@@ -104,7 +101,8 @@ export default {
       let phone = reg.exec(window.location.search)[0]
       api.phoneLoginFn(phone, pwd).then(res => {
         // 密码正确
-        // 显示登陆中，页面中间显示 loading 样式
+        // 将账号存下，以后登录时账号输入框自动填写
+        localStorage.setItem('account', phone)
         this.success()
       }).catch(err => {
         if (err) {

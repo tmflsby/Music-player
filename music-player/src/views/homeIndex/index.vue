@@ -51,10 +51,10 @@ export default {
       let uid = localStorage.getItem('accountUid')
       id = id || uid
       api.userRecordFn(id).then(res => {
-          this.homeListNum.recordNum = res.data.allData.length
-        }).catch(err => {
-          console.log(err)
-        })
+        this.homeListNum.recordNum = res.data.allData.length
+      }).catch(err => {
+        console.log(err)
+      })
     },
     /**
      * 获取用户信息

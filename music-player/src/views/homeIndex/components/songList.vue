@@ -13,9 +13,25 @@
       </div>
     </div>
     <ul class="song-group">
-      <li class="song-list" v-for="(item, index) in createList" :key="index">
+      <!-- 没登录的情况下会有我喜欢的音乐列表项显示 -->
+      <li class="song-list" v-if="!myLoveList.length">
+        <div class="list-cover">
+          <i class="home iconxin"></i>
+        </div>
+        <div class="list-info">
+          <p class="list-title">我喜欢的音乐</p>
+          <p class="list-num">0首</p>
+        </div>
+        <div class="heart">
+          <span class="heart-text">
+            <i class="home iconxintiao"></i>心动模式
+          </span>
+        </div>
+      </li>
+      <!-- 登录后的歌单项显示 -->
+      <li class="song-list" v-for="(item, index) in myLoveList" :key="index">
         <div class="list-img">
-          <img :src="item.conerImgurl" alt="">
+          <img :src="item.coverImgUrl" alt="">
         </div>
         <div class="list-info">
           <p class="list-title">{{ item.name | setName}}</p>
@@ -23,8 +39,22 @@
         </div>
         <div class="heart">
           <span class="heart-text">
-            <i class="home icondiandiandian"></i>
+            <i class="home iconxintiao"></i>心动模式
           </span>
+        </div>
+      </li>
+      <!-- Duplicate keys detected: '0'. This may cause an update error -->
+      <!-- key 值重复 -->
+      <li class="song-list" v-for="(item, index) in createList" :key="index + 1">
+        <div class="list-img">
+          <img :src="item.coverImgUrl" />
+        </div>
+        <div class="list-info">
+          <p class="list-title">{{ item.name}}</p>
+          <p class="list-num">{{item.trackCount}}首</p>
+        </div>
+        <div class="heart">
+            <i class="home icondiandiandian"></i>
         </div>
       </li>
     </ul>
@@ -46,12 +76,12 @@
         </div>
         <div class="list-info">
           <p class="list-title">{{ item.name}}</p>
-          <p class="list-num">{{item.trackCount}}首</p>
+          <p class="list-num">{{item.trackCount}}首
+            <span class="nickname">by {{item.creator.nickname}}</span>
+          </p>
         </div>
         <div class="heart">
-          <span class="heart-text">
-            <i class="home iconxintiao"></i>心动模式
-          </span>
+          <i class="home iconxintiao"></i>心动模式
         </div>
       </li>
     </ul>
@@ -67,7 +97,9 @@ export default {
       // 收藏歌单详情
       favoritesList: [],
       // 创建歌单详情
-      createList: []
+      createList: [],
+      // 我的喜欢歌单
+      myLoveList: []
     }
   },
   // 使用筛选功能，将列表中的 我喜欢的音乐 标题正确渲染
@@ -121,6 +153,8 @@ export default {
       let from = this.createIndex
       let len = this.createIndex + this.favoritesIndex
       this.createList = arr.slice(0, from)
+      this.myLoveList = this.createList.slice(0, 1)
+      this.createList = this.createList.slice(1)
       this.favoritesList = arr.slice(from, len)
     }
   }
@@ -158,6 +192,20 @@ export default {
     height: @listHeight;
     margin: 0.16rem 0;
     .flex-between();
+    .list-cover{
+      border-radius: @imgBorderRadius;
+      width: @listHeight;
+      height: @listHeight;
+      line-height: @listHeight;
+      text-align: center;
+      margin-right: 0.3rem;
+      overflow: hidden;
+      background:rgba(0,0,0,0.8);
+      .iconxin{
+        font-size: 0.5rem;
+        color:#fff;
+      }
+    }
     .list-img {
       border-radius: @imgBorderRadius;
       width: @listHeight;
@@ -181,6 +229,9 @@ export default {
         margin-top: 0.13rem;
         font-size: 0.2rem;
         color: #ccc;
+        .nickname{
+          margin-left: 0.2rem;
+        }
       }
     }
     .heart {
@@ -188,9 +239,9 @@ export default {
       height: @listHeight;
       display: flex;
       align-items: center;
-      justify-content: center;
-      .list-title {
-        font-size: small;
+      justify-content: flex-end;
+      .icondiandiandian{
+      color: rgba(0,0,0,0.5);
       }
       .heart-text {
         .smallTag();

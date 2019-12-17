@@ -1,7 +1,6 @@
 <!-- 手机号登陆账号页面 -->
 <template>
   <div class="wrapper">
-    <LoginNav></LoginNav>
     <div class="info">未注册手机号登录后将自动创建账号</div>
     <!-- 绑定内联样式 使用 对象 -->
     <div class="inp border-bottom" :style="{opacity}">
@@ -25,7 +24,6 @@
 </template>
 
 <script>
-import LoginNav from '@/base/generalNav'
 import LoginBtn from '@/base/button'
 import Alert from '@/base/alert'
 import api from '@/api'
@@ -42,7 +40,6 @@ export default {
     }
   },
   components: {
-    LoginNav,
     LoginBtn,
     Alert
   },
@@ -142,6 +139,18 @@ export default {
         }
         this.flag = true
       })
+    },
+    /**
+     * 当内存中有账号信息时自动填写
+     */
+    autoFill  () {
+      let phone = localStorage.getItem('account')
+      if (phone) {
+        this.phone = phone
+        this.canShow()
+        return true
+      }
+      return false
     }
   },
   /**
@@ -152,7 +161,10 @@ export default {
     clearTimeout(this.timer)
   },
   created () {
-    this.changFocus()
+    // 当自动填写后就不自动获取焦点
+    if (this.autoFill()) {
+      this.changFocus()
+    }
   }
 }
 </script>
