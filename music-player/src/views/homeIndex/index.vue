@@ -50,12 +50,9 @@ export default {
       // 当用户刷新页面时 vuex 状态失效，采用本地存储
       let uid = localStorage.getItem('accountUid')
       id = id || uid
-      api
-        .userRecordFn(id)
-        .then(res => {
+      api.userRecordFn(id).then(res => {
           this.homeListNum.recordNum = res.data.allData.length
-        })
-        .catch(err => {
+        }).catch(err => {
           console.log(err)
         })
     },
@@ -74,6 +71,8 @@ export default {
           // 更新收藏的歌单数
           this.songListNum.favoritesNum = data.subPlaylistCount
         }
+      }).catch(err => {
+        console.log(err)
       })
     }
   },

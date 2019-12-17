@@ -64,31 +64,29 @@ export default {
      * 登陆成功后存取登录状态及信息
      */
     getLoginState () {
-      api.loginStatusFn()
-        .then(res => {
+      api.loginStatusFn().then(res => {
         // 存取用户 id
-          let userId = res.data.profile.userId
-          if (res.data.code === 200) {
-          // 存取用户信息
-            let accountInfo = res.data.profile
-            // 成功登陆
-            // 修改状态为 1
-            this.$store.commit('LOGIN_STATE')
-            // Vuex在用户刷新的时候loginState会回到默认值false
-            // 所以我们需要用到HTML5储存
-            // 我们设置一个名为loginState
-            localStorage.setItem('loginState', true)
-            // 存入用户头像 昵称
-            localStorage.setItem('avatarUrl', accountInfo.avatarUrl)
-            localStorage.setItem('nickname', accountInfo.nickname)
-            // 存取用户 uid信息
-            this.$store.commit('ACCOUNT_UID', userId)
-            localStorage.setItem('accountUid', userId)
-          }
-        })
-        .catch(err => {
-          console.log(err)
-        })
+        let userId = res.data.profile.userId
+        if (res.data.code === 200) {
+        // 存取用户信息
+          let accountInfo = res.data.profile
+          // 成功登陆
+          // 修改状态为 1
+          this.$store.commit('LOGIN_STATE')
+          // Vuex在用户刷新的时候loginState会回到默认值false
+          // 所以我们需要用到HTML5储存
+          // 我们设置一个名为loginState
+          localStorage.setItem('loginState', true)
+          // 存入用户头像 昵称
+          localStorage.setItem('avatarUrl', accountInfo.avatarUrl)
+          localStorage.setItem('nickname', accountInfo.nickname)
+          // 存取用户 uid信息
+          this.$store.commit('ACCOUNT_UID', userId)
+          localStorage.setItem('accountUid', userId)
+        }
+      }).catch(err => {
+        console.log(err)
+      })
     },
     /**
      * 判断密码是否正确
@@ -101,22 +99,18 @@ export default {
       }
       // 创建一个正则表达式
       let reg = new RegExp(/\d*$/)
-      // window.location.hash 返回从 “#” 开始的 url
+      // window.location.search 返回 url 的 query
       // 返回一个数组（未匹配到则返回 null）
       let phone = reg.exec(window.location.search)[0]
-      api.phoneLoginFn(phone, pwd)
-        .then(res => {
-          // 密码正确
-          // 显示登陆中，页面中间显示 loading 样式
-          this.success()
-        })
-        // eslint 报 handle-callback-err 错误 添加 if 判断
-        .catch(error => {
-          if (error) {
-            // 密码错误
-            this.error()
-          }
-        })
+      api.phoneLoginFn(phone, pwd).then(res => {
+        // 密码正确
+        // 显示登陆中，页面中间显示 loading 样式
+        this.success()
+      }).catch(err => {
+        if (err) {
+          this.error()
+        }
+      })
     },
     /**
      * 登录成功

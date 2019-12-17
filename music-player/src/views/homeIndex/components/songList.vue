@@ -108,6 +108,8 @@ export default {
         if (data.code === 200) {
           this.sliceInfo(data.playlist)
         }
+      }).catch(err => {
+        console.log(err)
       })
     },
     /**

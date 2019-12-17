@@ -125,24 +125,23 @@ export default {
      */
     determineRegistered (phone) {
       let self = this
-      api.phoneRegisteredFn(phone)
-        .then(res => {
-          if (res.data.exist !== -1) {
-            // 已经注册 跳转到输入密码页面
-            // 携带参数（手机号）跳转
-            this.$router.push({
-              path: '/pwd',
-              query: { phone: self.phone }
-            })
-          } else if (res.data.exist === -1) {
-            // 没有注册 跳转到接收验证码页面
-            this.$router.push({
-              path: '/verify',
-              query: { phone: self.phone }
-            })
-          }
-          this.flag = true
-        })
+      api.phoneRegisteredFn(phone).then(res => {
+        if (res.data.exist !== -1) {
+          // 已经注册 跳转到输入密码页面
+          // 携带参数（手机号）跳转
+          this.$router.push({
+            path: '/pwd',
+            query: { phone: self.phone }
+          })
+        } else if (res.data.exist === -1) {
+          // 没有注册 跳转到接收验证码页面
+          this.$router.push({
+            path: '/verify',
+            query: { phone: self.phone }
+          })
+        }
+        this.flag = true
+      })
     }
   },
   /**
