@@ -6,9 +6,9 @@
       <p>
         <span>+86</span>
         <span>
-          198
+          {{phone1}}
           <span class="middle">****</span>
-          0799
+          {{phone2}}
         </span>
       </p>
     </div>
@@ -17,8 +17,49 @@
 </template>
 
 <script>
+import { getPhone } from '@/assets/utils/getPhone'
+import api from '@/api'
 export default {
-  name: 'VerifyInfo'
+  name: 'VerifyInfo',
+  // 通过 url 传过来的手机号，存取后进行验证码发送操作
+  data () {
+    return {
+      phone1: Number,
+      phone: Number
+    }
+  },
+  methods: {
+    /**
+     * 发送验证码
+     */
+    sendVerify () {
+      let phone = getPhone()
+      // 截取手机号码进行页面显示
+      this.phone1 = Array.from(phone).slice(0, 3).join('')
+      this.phone2 = Array.from(phone).slice(-4).join('')
+      // 发送验证码
+      api.sendVerifyFn(phone).then(res => {
+        console.log(res)
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+    /**
+     * 验证验证码
+     */
+    verify () {
+      let phone = getPhone()
+      let captcha = '111'
+      api.verifyFn(phone, captcha).then(res => {
+        console.log(res)
+      }).catch(error => {
+        console.log(error)
+      })
+    }
+  },
+  created () {
+    this.sendVerify()
+  }
 }
 </script>
 

@@ -35,8 +35,7 @@ export default {
     ...mapGetters({ loginPage: 'LOGIN_PAGE' })
   },
   methods: {
-    ...mapMutations(['SHOW_LOGIN']),
-    ...mapMutations(['HIDE_LOGIN'])
+    ...mapMutations(['SHOW_LOGIN', 'HIDE_LOGIN'])
   }
 }
 </script>
@@ -52,7 +51,7 @@ export default {
 }
 .mask-show-enter-active,
 .mask-show-leave-active {
-  transition: opacity linear 0.2s;
+  transition: opacity linear 0.3s;
 }
 
 // 左侧侧边栏显示隐藏动画
@@ -62,7 +61,7 @@ export default {
 }
 .login-show-enter-active,
 .login-show-leave-active {
-  transition: transform ease-out 0.2s;
+  transition: transform linear 0.3s;
 }
 
 // 顶部的导航条

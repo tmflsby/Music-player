@@ -15,6 +15,31 @@ export default {
     })
   },
   /**
+   * 调用此接口 ,传入手机号码, 可发送验证码
+   * @param {number} phone 手机号
+   */
+  sendVerifyFn (phone) {
+    return axios.get(apiConfig.sendVerify, {
+      params: {
+        phone
+      }
+    })
+  },
+  /**
+   * 验证验证码
+   * 调用此接口 ,传入手机号码和验证码, 可校验验证码是否正确
+   * @param {*} phone 手机号
+   * @param {*} captcha 验证码
+   */
+  verifyFn (phone, captcha) {
+    return axios.get(apiConfig.verify, {
+      params: {
+        phone,
+        captcha
+      }
+    })
+  },
+  /**
    * 用户通过手机登录
    * @param {number} phone 手机号
    * @param {String} password 密码

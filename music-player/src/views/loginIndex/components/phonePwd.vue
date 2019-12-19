@@ -13,6 +13,7 @@
 </template>
 
 <script>
+import { getPhone } from '@/assets/utils/getPhone'
 import LoginBtn from '@/base/button'
 import Alert from '@/base/alert'
 import Loading from '@/base/loading'
@@ -94,11 +95,9 @@ export default {
         this.alertText = '请输入密码'
         this.alertEvent()
       }
-      // 创建一个正则表达式
-      let reg = new RegExp(/\d*$/)
-      // window.location.search 返回 url 的 query
-      // 返回一个数组（未匹配到则返回 null）
-      let phone = reg.exec(window.location.search)[0]
+
+      let phone = getPhone()
+
       api.phoneLoginFn(phone, pwd).then(res => {
         // 密码正确
         // 将账号存下，以后登录时账号输入框自动填写

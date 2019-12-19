@@ -32,7 +32,7 @@ export default {
   [mutationTypes.TOGGLE_MODE] (state) {
     if (state.iconyueliang1) {
       this._mutations.TO_YUE[0](state)
-    } else {
+    } else if (state.icontaiyang) {
       this._mutations.TO_SUN[0](state)
     }
   },

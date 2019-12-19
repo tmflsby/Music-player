@@ -1,3 +1,4 @@
+<!-- 登录电话路由组件 -->
 <template>
   <div class="wrapper">
     <LoginNav></LoginNav>
