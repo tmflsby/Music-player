@@ -192,6 +192,7 @@ export default {
     height: @listHeight;
     margin: 0.16rem 0;
     .flex-between();
+    .ripple();
     .list-cover{
       border-radius: @imgBorderRadius;
       width: @listHeight;

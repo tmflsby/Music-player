@@ -13,7 +13,7 @@ export default {
 </script>
 
 <style lang="less">
-#app {
-  background: #fff;
+#app{
+  height: 100vh;
 }
 </style>

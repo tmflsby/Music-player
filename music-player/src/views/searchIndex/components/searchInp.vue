@@ -133,16 +133,12 @@ export default {
     },
     /**
      * 搜索
+     * 搜索功能跳转到搜索展示页面
      */
     searchKey (key) {
       this.getHistory(key)
-      api.searchFn(key).then(res => {
-        const data = res.data
-        if (data.code === 200) {
-          console.log(data)
-        }
-      }).catch(error => {
-        console.log(error)
+      this.$router.push({
+        path: `/searchResults/${key}`
       })
     },
     /**

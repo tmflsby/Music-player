@@ -4,7 +4,7 @@
     <HomeIcons></HomeIcons>
     <HomeList :num="homeListNum"></HomeList>
     <div class="split"></div>
-    <SongList :index="songListNum"></SongList>
+    <SongList ref="songList" :index="songListNum"></SongList>
   </div>
 </template>
 
@@ -93,6 +93,7 @@ export default {
       this.getInfo()
       // 获取用户播放记录
       this.getRecord(this.accountUid)
+      // this.$refs.songList.getPlaylist()
     }
   }
 }

@@ -68,6 +68,7 @@ export default {
   margin: 0.1rem 0;
   height: 0.76rem;
   line-height: 0.76rem;
+  .ripple();
   &:last-child .wrapper::before {
     border: none;
   }

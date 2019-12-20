@@ -2,24 +2,29 @@
 <template>
   <div class="container border-bottom">
     <ul class="icons-wrapper">
-      <li class="icon-list" v-for="(item, index) in loginIcons" :key="index">
+      <!-- <li class="icon-list" v-for="(item, index) in loginIcons" :key="index">
         <div class="icon">
           <i class="login" :class="item.icon"></i>
         </div>
         <span class="icon-text">{{item.text}}</span>
-      </li>
+      </li> -->
+      <li v-for="(item, index) in loginIcons" :key="index" :icons="item" is="Icon"></li>
     </ul>
   </div>
 </template>
 
 <script>
 import { loginIcons } from '@/getInfos/getData.js'
+import Icon from '@/base/icon'
 export default {
   name: 'LoginIcons',
   data () {
     return {
       loginIcons
     }
+  },
+  components: {
+    Icon
   },
   mounted () {
     this.iniData()

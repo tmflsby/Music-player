@@ -13,10 +13,14 @@
     <!-- 已经登陆状态样式 -->
     <div class="login-ed" v-if="loginState">
       <div class="img-info">
-        <img class="account-bg" :src="avatarUrl" alt="">
+        <el-avatar class="account-bg" :src="avatarUrl"></el-avatar>
+        <!-- <img class="account-bg" :src="avatarUrl" alt=""> -->
         <p class="account-nickname">{{nickname}}</p>
       </div>
-      <div class="daily_sign-in"><i class="login icontubiaozhizuo-"></i> 签到</div>
+      <div class="daily_sign-in">
+        <el-button  type="danger" size="mini"  round><i class="login icontubiaozhizuo-"></i>签到</el-button>
+      </div>
+      <!-- <div class="daily_sign-in"><i class="login icontubiaozhizuo-"></i> 签到</div> -->
     </div>
   </div>
 </template>
@@ -51,7 +55,7 @@ export default {
 @import url("~@/assets/styles/global.less");
 @color: rgba(0, 0, 0, 0.4);
 @fontSize : 0.2rem;
-.loginBg{
+.loginBg {
   // 如果没有登陆，背景是灰色
   background-color: rgba(204, 204, 204, 0.3);
 }
@@ -63,30 +67,30 @@ export default {
   padding: 0.6rem 0.23rem 0.9rem;
   width: 100%;
   height: 3rem;
-  .login-ed{
+  .login-ed {
     display: flex;
     width: 100%;
     height: 100%;
     justify-content: space-between;
-    .img-info{
+    .img-info {
       // 用户信息 包括头像和昵称
       text-align: center;
       width: 1.3rem;
       height: 1.3rem;
-      .account-bg{
+      .account-bg {
+        margin-left: .3rem;
         width: 100%;
         height: 100%;
         border-radius: 50%;
       }
-      .account-nickname{
-        margin-top: 20px;
-      }
     }
-    .daily_sign-in{
+    .daily_sign-in {
+      display: flex;
+      justify-content: center;
+      align-items: center;
       box-sizing: border-box;
       padding: 0.07rem;
       font-size: 0.2rem;
-      text-align: center;
       margin-top: auto;
       color: #fff;
       width: 1.2rem;
