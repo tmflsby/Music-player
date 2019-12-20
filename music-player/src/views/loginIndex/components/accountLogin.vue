@@ -1,7 +1,11 @@
 <!-- 登录电话路由组件 -->
 <template>
   <div class="wrapper">
-    <LoginNav></LoginNav>
+    <LoginNav>
+      <template v-slot="props">
+        <span class="text">{{props.text}}</span>
+      </template>
+    </LoginNav>
     <router-view></router-view>
   </div>
 </template>
@@ -20,5 +24,9 @@ export default {
 .wrapper{
   box-sizing: border-box;
   padding: 0.23rem;
+  .text{
+    font-size: 0.4rem;
+    vertical-align: 5px;
+  }
 }
 </style>

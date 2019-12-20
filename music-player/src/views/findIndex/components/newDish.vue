@@ -92,8 +92,13 @@ export default {
       flex-direction: column;
       .list-img {
         position: relative;
+        width: 2.1rem;
+        height: 0;
+        padding-bottom: 2.1rem;
+        background-color: #aaa;
+        border-radius: @imgBorderRadius;
+        overflow: hidden;
         img {
-          border-radius: @imgBorderRadius;
           width: 100%;
         }
       }

@@ -9,17 +9,20 @@ const routes = [
      * 设置页面初次加载后默认显示 find 页面
      */
     path: '/',
-    redirect: '/find'
-  },
-  {
-    path: '/find',
     name: 'main',
-    component: () => import('@/views/findIndex')
-  },
-  {
-    path: '/home',
-    name: 'home',
-    component: () => import('@/views/homeIndex')
+    redirect: '/find',
+    component: () => import('@/views/nav'),
+    children: [
+      {
+        path: 'find',
+        component: () => import('@/views/findIndex')
+      },
+      {
+        path: '/home',
+        name: 'home',
+        component: () => import('@/views/homeIndex')
+      }
+    ]
   },
   {
     path: '/login',
@@ -46,6 +49,11 @@ const routes = [
         component: () => import('@/views/loginIndex/components/phoneVerify.vue')
       }
     ]
+  },
+  {
+    path: '/search',
+    name: 'search',
+    component: () => import('@/views/searchIndex')
   }
 ]
 

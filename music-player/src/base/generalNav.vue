@@ -2,7 +2,9 @@
 <template>
   <nav class="phone-nav">
     <i class="phone iconzuojiantou" @click="returnPage"></i>
-    <span class="text">{{ nav }}</span>
+    <!-- 作用域插槽 -->
+    <slot :text="nav"></slot>
+    <!-- <span class="text">{{ nav }}</span> -->
   </nav>
 </template>
 
@@ -34,7 +36,7 @@ export default {
   }
   .text{
     font-size: 0.4rem;
-  vertical-align: 5px;
+    vertical-align: 5px;
   }
 }
 </style>

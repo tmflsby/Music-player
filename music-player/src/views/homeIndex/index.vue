@@ -1,7 +1,6 @@
 <!-- home页面组件 -->
 <template>
   <div class="container">
-    <DefaultNav></DefaultNav>
     <HomeIcons></HomeIcons>
     <HomeList :num="homeListNum"></HomeList>
     <div class="split"></div>
@@ -11,7 +10,6 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import DefaultNav from '@/views/nav'
 import HomeIcons from './components/icons'
 import HomeList from './components/homeList'
 import SongList from './components/songList'
@@ -36,7 +34,6 @@ export default {
     }
   },
   components: {
-    DefaultNav,
     HomeIcons,
     HomeList,
     SongList
