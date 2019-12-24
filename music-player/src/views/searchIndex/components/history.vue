@@ -8,7 +8,7 @@
     <div class="wrapper">
       <div class="container ">
         <ul class="icons-group">
-          <li class="icon-list" v-for="(item, index) in history" :key="index">{{item}}</li>
+          <li class="icon-list" @click="toSearch(item)" v-for="(item, index) in history" :key="index">{{item}}</li>
         </ul>
       </div>
     </div>
@@ -35,7 +35,6 @@ export default {
       // 兄弟组件进行值的接收
       // Bus.$on('方法名(与兄弟组件方法名一致), 回调函数 参数为传过来的值')
       Bus.$on('history', (history) => {
-        console.log(history)
         this.history = history
       })
     },
@@ -45,6 +44,9 @@ export default {
     clearHistory () {
       localStorage.removeItem('keys')
       this.history = []
+    },
+    toSearch (keywords) {
+      Bus.$emit('search', keywords)
     }
   }
 }
@@ -83,9 +85,9 @@ export default {
         width: auto;
         min-width: 100%;
         .icon-list {
-          height: 100%;
+          height: 0.44rem;
           box-sizing: border-box;
-          padding: 0.13rem;
+          padding: 0 0.13rem;
           font-size: small;
           display: flex;
           justify-content: center;

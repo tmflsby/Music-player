@@ -193,7 +193,7 @@ export default {
       // 给input的height设定一个较小的高度，然后用padding去填充，基本上可以解决所有浏览器的问题
       height: 16px;
       padding: 4px 0px;
-      font-size: 12px;
+      font-size: 0.24rem;
       // ---------------------------
       margin-left: 10px;
       flex: 1;

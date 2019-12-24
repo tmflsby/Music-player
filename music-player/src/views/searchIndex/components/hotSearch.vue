@@ -38,6 +38,7 @@ export default {
         const data = res.data
         if (data.code === 200) {
           this.hotSearchList = data.data
+          this.$emit('childFn', false)
         }
       }).catch(error => {
         console.log(error)

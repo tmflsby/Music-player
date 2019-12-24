@@ -1,29 +1,34 @@
 <!-- search页面 -->
 <template>
   <div>
-    <SearchInp ref="search"></SearchInp>
-    <History></History>
-    <HotSearch @returnKey = "setKey"></HotSearch>
+    <SearchInp ref="search" page="search" Right="1rem"></SearchInp>
+    <History v-show="!loading"></History>
+    <!-- 父组件在组件上定义了一个自定义事件childFn，事件名为parentFn用于接受子组件传过来的message值。 -->
+    <HotSearch v-show="!loading" @returnKey = "setKey" @childFn="parentFn"></HotSearch>
+    <PageLoading v-if="loading"></PageLoading>
   </div>
 </template>
 
 <script>
-import SearchInp from './components/searchInp'
+import PageLoading from '@/base/pageLoading'
+import SearchInp from '@/base/searchInp'
 import History from './components/history'
 import HotSearch from './components/hotSearch'
 export default {
   name: 'search',
   data () {
     return {
-      hotSearchKey: ''
+      hotSearchKey: '',
+      loading: true
     }
   },
   components: {
     SearchInp,
     History,
-    HotSearch
+    HotSearch,
+    PageLoading
   },
-  created () {
+  activated  () {
     this.setKey()
   },
   methods: {
@@ -34,11 +39,14 @@ export default {
         // console.log(this.$refs.search)
         this.$refs.search.searchKey(key)
       }
+    },
+    parentFn (result) {
+      this.loading = result
     }
   }
 }
 </script>
 
 <style lang="less" scoped>
-@import url('//at.alicdn.com/t/font_1371990_nz4220l62x.css');
+@import url('//at.alicdn.com/t/font_1371990_3libmbu82og.css');
 </style>

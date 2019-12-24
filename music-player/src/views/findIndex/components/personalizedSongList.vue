@@ -38,7 +38,11 @@ export default {
       // 遍历当前数据
       this.songList.forEach(element => {
         playCount.push(
-          element.playCount > 10000 ? Math.floor(element.playCount / 10000) + '万' : element.playCount
+          element.playCount > 10000
+            ? element.playCount > 100000000
+              ? ((element.playCount / 100000000).toFixed(1)) + '亿'
+              : Math.floor(element.playCount / 10000) + '万'
+            : element.playCount
         )
       })
       return playCount

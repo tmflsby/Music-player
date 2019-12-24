@@ -57,7 +57,49 @@ const routes = [
   },
   {
     path: '/searchResults/:id',
-    component: () => import('@/views/searchResults')
+    component: () => import('@/views/searchResults'),
+    children: [
+      {
+        // 综合页面
+        path: '',
+        component: () => import('../views/searchResults/composite')
+      },
+      {
+        // 单曲页面
+        path: '/song',
+        component: () => import('../views/searchResults/songIndex')
+      },
+      {
+        // 视频页面
+        path: '/video',
+        component: () => import('../views/searchResults/videoIndex')
+      },
+      {
+        // 歌手页面
+        path: '/artist',
+        component: () => import('../views/searchResults/artistIndex')
+      },
+      {
+        // 专辑页面
+        path: '/album',
+        component: () => import('../views/searchResults/albumIndex')
+      },
+      {
+        // 歌单页面
+        path: '/playList',
+        component: () => import('../views/searchResults/playListIndex')
+      },
+      {
+        // 主播电台页面
+        path: 'djRadio',
+        component: () => import('../views/searchResults/djRadioIndex')
+      },
+      {
+        // 用户页面
+        path: 'user',
+        component: () => import('../views/searchResults/userIndex')
+      }
+    ]
   }
 ]
 

@@ -1,14 +1,15 @@
 <!-- search顶部input组件 -->
 <template>
   <div class="wrapper pd23">
-    <i class="search iconzuojiantou" @click="returnPage"></i>
-    <input class="searchInp" type="text" :placeholder="placeholder" ref="inputs" v-model.trim="keywords" autofocus="autofocus" @focus="displayList">
-    <i class="search icongeshou"></i>
-    <div class="floatInfo" v-if="showList">
+    <i class="iconfont zuojiantou" @click="returnPage"></i>
+    <input class="search" type="text" :placeholder="placeholder" ref="inputs" v-model.trim="keywords" autofocus="autofocus" @focus="displayList">
+    <i v-show="keywords.length" @click="clearInp" class="iconfont guanbi" :style="{right: Right}"></i>
+    <i class="iconfont geshou" v-if="page"></i>
+    <div class="floatInfo" v-show="showList">
       <ul>
         <li  @click="searchKey(keywords) " class="blue border-bottom">搜索<span class="text">"{{ keywords }}"</span></li>
         <li @click="searchKey(item.keyword)" class="border-bottom" v-for="(item, index) in searchList" :key="index">
-          <i class="search iconsousuo1"></i>
+          <i class="iconfont sousuo"></i>
           {{ item.keyword }}
         </li>
       </ul>
@@ -33,11 +34,27 @@ export default {
       placeholder: ''
     }
   },
+  props: {
+    page: {
+      type: String
+    },
+    Right: {
+      default: '0.23rem'
+    },
+    keyword: {
+      type: String,
+      default: ''
+    }
+  },
   created () {
     // 获取焦点
     this.changFocus()
     // 先将默认搜索建议显示
     this.setDefault()
+    // 历史记录项点击搜索
+    this.historySearch()
+    // 页面首次加载，由于 keyword 没有被watch监听，所以使用函数方法进行赋值
+    this.setKeyword()
   },
   mounted () {
     // 获取历史搜索记录
@@ -48,22 +65,62 @@ export default {
      * 是否显示搜索建议
      */
     keywords (val, oldVal) {
-      if (this.keywords.length > 0) {
-        this.displayList()
-        this.setSearchList(val)
-      } else {
+      // 这是对于输入框内容定义的事件，当是跳转过来的
+      // 说明内容相等，不显示搜索建议列表
+      if (this.keywords === this.keyword) {
         this.hideList()
+        return
+      }
+      // 在内容变化时，并且当内容长度大于0 说明有内容时
+      if (this.keywords.length > 0) {
+        // 显示建议列表
+        this.displayList()
+      } else {
+        // 隐藏建议列表
+        this.hideList()
+      }
+    },
+    // 对于prop传过来的值，在第一次使用方法进行修改，随后监听keyword变化，对搜索内容进行修改
+    keyword: function (val, oldVal) {
+      if (val) {
+        this.keywords = val
       }
     }
   },
   methods: {
     /**
+     * 第一次访问需要调用方法更改数据
+     * 随后是监听 keyword 改变后赋值
+     */
+    setKeyword () {
+      if (this.keyword) {
+        this.keywords = this.keyword
+      }
+    },
+    /**
+     * 历史记录项目点击搜索
+     */
+    historySearch () {
+      Bus.$on('search', (keywords) => {
+        this.searchKey(keywords)
+      })
+    },
+    /**
+     * 点击清除按钮清除搜索框的内容
+     */
+    clearInp () {
+      this.keywords = ''
+    },
+    /**
      * 自动获取焦点
+     * 当是搜索展示页时不自动获取焦点
      */
     changFocus () {
-      this.$nextTick(x => {
-        this.$refs.inputs.focus()
-      })
+      if (!this.keyword) {
+        this.$nextTick(x => {
+          this.$refs.inputs.focus()
+        })
+      }
     },
     /**
      * 返回上一页
@@ -94,11 +151,12 @@ export default {
      * 显示搜索列表建议
      */
     displayList () {
-      // 当搜索框内没有内容时不显示
       if (!this.keywords) {
         return
       }
       this.showList = true
+      // 搜索建议列表内容获取
+      this.setSearchList(this.keywords)
     },
     /**
      * 根据搜索内容展示搜索建议列表
@@ -137,6 +195,8 @@ export default {
      */
     searchKey (key) {
       this.getHistory(key)
+      this.hideList()
+      this.clearInp()
       this.$router.push({
         path: `/searchResults/${key}`
       })
@@ -159,14 +219,24 @@ export default {
 
 <style lang="less" scoped>
 @import url("~@/assets/styles/global.less");
+@import url('//at.alicdn.com/t/font_1379594_vh7eh105cbo.css');
 .wrapper {
   .flex-between();
-  .search{
+  height: 0.7rem;
+  line-height: 0.7rem;
+  .guanbi {
+    position: absolute;
+    right: 0.23rem;
+  }
+  .geshou {
+    margin-left: 0.3rem;
+  }
+  .iconfont {
     font-size: 0.5rem
   }
-  .searchInp {
+  .search {
     flex: 1;
-    margin: 0 0.3rem;
+    margin-left: 0.3rem;
     border-bottom: 1px solid #aaa;
   }
   .floatInfo {
@@ -185,7 +255,7 @@ export default {
       .text {
         margin-left: 8px;
       }
-      .search {
+      .iconfont {
         font-size: 0.4rem;
         vertical-align: -0.04rem;
       }
@@ -196,7 +266,7 @@ export default {
   }
   .mask {
     position: fixed;
-    top: 0;
+    top: 0.7rem;
     left: 0;
     bottom: 0;
     right: 0;
