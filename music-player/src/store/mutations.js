@@ -51,5 +51,11 @@ export default {
   // 存取用户 uid
   [mutationTypes.ACCOUNT_UID] (state, id) {
     state.accountUid = id
+  },
+  [mutationTypes.SET_LOAD] (state) {
+    state.load = false
+  },
+  [mutationTypes.RETURN_LOAD] (state) {
+    state.load = true
   }
 }

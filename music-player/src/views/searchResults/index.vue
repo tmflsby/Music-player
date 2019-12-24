@@ -1,15 +1,17 @@
 <template>
   <div>
     <SearchInput :keyword="key"></SearchInput>
-    搜索结果展示
-    <PageLoading></PageLoading>
-    <router-view :keywords="key"></router-view>
+    <NavIndex></NavIndex>
+    <PageLoading v-show="load"></PageLoading>
+    <router-view v-show="!load" :keywords="key"></router-view>
   </div>
 </template>
 
 <script>
-import SearchInput from '@/base/searchInp'
+import NavIndex from './navIndex'
+import SearchInput from '@/base/searchInput'
 import PageLoading from '@/base/pageLoading'
+import { mapGetters } from 'vuex'
 export default {
   name: 'SearchResults',
   data () {
@@ -19,7 +21,11 @@ export default {
   },
   components: {
     SearchInput,
-    PageLoading
+    PageLoading,
+    NavIndex
+  },
+  computed: {
+    ...mapGetters({ 'load': 'LOAD' })
   },
   watch: {
     '$route' (to, from) {

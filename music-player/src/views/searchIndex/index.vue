@@ -11,7 +11,7 @@
 
 <script>
 import PageLoading from '@/base/pageLoading'
-import SearchInp from '@/base/searchInp'
+import SearchInp from '@/base/searchInput'
 import History from './components/history'
 import HotSearch from './components/hotSearch'
 export default {

@@ -4,7 +4,8 @@ const getters = {
   ICON_NIGHT: state => state.iconyueliang1,
   MODE_TEXT: state => state.modeText,
   LOGIN_STATE: state => state.loginState,
-  ACCOUNT_UID: state => state.accountUid
+  ACCOUNT_UID: state => state.accountUid,
+  LOAD: state => state.load
 }
 
 export default getters

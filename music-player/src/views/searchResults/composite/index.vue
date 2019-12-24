@@ -1,11 +1,12 @@
 <!-- 综合页面 -->
 <template>
-  <div>
-    综合页面
+  <div class="wrapper">
+    <Song :songList="songList"></Song>
   </div>
 </template>
 
 <script>
+import Song from './components/song'
 import api from '@/api'
 export default {
   name: '',
@@ -15,26 +16,36 @@ export default {
       type: String
     }
   },
+  components: {
+    Song
+  },
   data () {
     return {
       // 这个搜索结果都包含哪些部分
-      order: {},
+      orderList: {},
       // 查看同名歌曲
-      song: {},
+      songList: {},
       // 查看全部歌单
-      playList: {},
+      playListList: {},
       // 查看全部视频
-      video: {},
+      videoList: {},
       // 相关搜索
-      sim_query: {},
+      sim_queryList: {},
       // 查看全部歌手
-      artist: {},
+      artistList: {},
       // 查看全部专辑
-      album: {},
+      albumList: {},
       // 查看全部电台
-      djRadio: {},
+      djRadioList: {},
       // 查看全部用户
-      user: {}
+      userList: {}
+    }
+  },
+  watch: {
+    keywords (val) {
+      if (val) {
+        this.searchShow(val)
+      }
     }
   },
   created () {
@@ -49,7 +60,19 @@ export default {
       api.searchFn(key).then(res => {
         const data = res.data
         if (data.code === 200) {
-          console.log(data)
+          let { album, order, song, playList, video, artist, djRadio, user } = data.result
+          let simQuery = data.result.sim_query
+          this.orderList = order
+          this.songList = song
+          this.playListList = playList
+          this.videoList = video
+          this.sim_queryList = simQuery
+          this.artistList = artist
+          this.albumList = album
+          this.djRadioList = djRadio
+          this.userList = user
+          this.$store.commit('SET_LOAD')
+          console.log(this.songList)
         }
       }).catch(error => {
         console.log(error)
@@ -60,5 +83,9 @@ export default {
 </script>
 
 <style lang='less' scoped>
-
+@import url('//at.alicdn.com/t/font_1380711_hgcpetr0qxo.css');
+.wrapper{
+  box-sizing: border-box;
+  padding: 0 0.23rem;
+}
 </style>

@@ -190,6 +190,15 @@ export default {
       Bus.$emit('history', this.history)
     },
     /**
+     * 向导航标签传递key值
+     */
+    pushKey (key) {
+      this.$nextTick(function () {
+        // DOM 现在更新了
+        Bus.$emit('push', key)
+      })
+    },
+    /**
      * 搜索
      * 搜索功能跳转到搜索展示页面
      */
@@ -197,6 +206,13 @@ export default {
       this.getHistory(key)
       this.hideList()
       this.clearInp()
+      // 将loading显示样式设置回去
+      this.$store.commit('RETURN_LOAD')
+      // 这里解决了Bus传值第一次无法获取到的问题
+      // 后需解决！！！！
+      setTimeout(() => {
+        this.pushKey(key)
+      }, 0)
       this.$router.push({
         path: `/searchResults/${key}`
       })
@@ -213,6 +229,10 @@ export default {
         return arr.indexOf(item) === index
       })
     }
+  },
+  beforeDestroy () {
+    // 销毁监听事件
+    this.$Bus.$off('push', 'history')
   }
 }
 </script>
