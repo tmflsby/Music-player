@@ -40,8 +40,8 @@ export default {
           this.hotSearchList = data.data
           this.$emit('childFn', false)
         }
-      }).catch(error => {
-        console.log(error)
+      }).catch(err => {
+        console.log(err)
       })
     },
     /**

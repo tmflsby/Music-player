@@ -40,8 +40,8 @@ export default {
       // 发送验证码
       api.sendVerifyFn(phone).then(res => {
         console.log(res)
-      }).catch(error => {
-        console.log(error)
+      }).catch(err => {
+        console.log(err)
       })
     },
     /**
@@ -52,8 +52,8 @@ export default {
       let captcha = '111'
       api.verifyFn(phone, captcha).then(res => {
         console.log(res)
-      }).catch(error => {
-        console.log(error)
+      }).catch(err => {
+        console.log(err)
       })
     }
   },

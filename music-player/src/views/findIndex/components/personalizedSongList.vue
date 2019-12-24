@@ -50,7 +50,7 @@ export default {
   },
   methods: {
     getSongListInfo () {
-      axios.get('http://140.143.128.100:3000/personalized').then(this.setSongListInfo)
+      axios.get('http://140.143.128.100:3000/personalized').then(this.setSongListInfo).catch(err => console.log(err))
     },
     setSongListInfo (res) {
       if (res.status === 200 && res.statusText === 'OK') {

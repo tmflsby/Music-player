@@ -29,7 +29,7 @@ export default {
   },
   methods: {
     getDishListInfo () {
-      axios.get('http://140.143.128.100:3000/top/album?offset=0&limit=20').then(this.setDishListInfo)
+      axios.get('http://140.143.128.100:3000/top/album?offset=0&limit=20').then(this.setDishListInfo).catch(err => console.log(err))
     },
     setDishListInfo (res) {
       if (res.status === 200 && res.statusText === 'OK') {

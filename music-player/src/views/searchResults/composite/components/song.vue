@@ -36,41 +36,41 @@ export default {
 
 <style lang='less' scoped>
 @import url('~@/assets/styles/global.less');
-.song-group{
+.song-group {
   margin-top: 0.16rem;
-  .list-item{
+  .list-item {
     .flex-between();
     align-items: center;
     height: 1rem;
-    .song-info{
+    .song-info {
       display: flex;
       flex-direction: column;
-      .song-name{
+      .song-name {
         height: 0.4rem;
         line-height: 0.4rem;
         .ellipsis();
       }
-      .song-art{
+      .song-art {
         height: 0.4rem;
         line-height: 0.4rem;
         font-size: 0.23rem;
         color: #dacdcd;
-        .artist{
-          &::after{
+        .artist {
+          &::after {
           content: "/";
           }
-          &:last-child::after{
+          &:last-child::after {
             content: "";
           }
         }
       }
     }
-    .icon{
+    .icon {
       color: #ccc;
     }
   }
 }
-.more{
+.more {
   height: 1rem;
   display: flex;
   justify-content: center;

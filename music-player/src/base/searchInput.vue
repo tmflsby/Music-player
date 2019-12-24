@@ -139,6 +139,8 @@ export default {
           // this.$refs.inputs.setAttribute('placeholder', this.default)
           this.placeholder = this.default
         }
+      }).catch(err => {
+        console.log(err)
       })
     },
     /**
@@ -167,8 +169,8 @@ export default {
         if (data.code === 200) {
           this.searchList = data.result.allMatch
         }
-      }).catch(error => {
-        console.log(error)
+      }).catch(err => {
+        console.log(err)
       })
     },
     /**
@@ -214,7 +216,7 @@ export default {
         this.pushKey(key)
       }, 0)
       this.$router.push({
-        path: `/searchResults/${key}`
+        path: `/composite/${key}`
       })
     },
     /**

@@ -1,12 +1,14 @@
 <!-- 综合页面 -->
 <template>
   <div class="wrapper">
-    <Song :songList="songList"></Song>
-    <PlayList :playList="playListList"></PlayList>
-    <Video :videoList="videoList"></Video>
-    <SimQuery :simQuery="sim_queryList"></SimQuery>
-    <Artist :artist="artistList"></Artist>
-    <Album :album="albumList"></Album>
+    <Song :songList="songList" v-if="orderList.includes('song')"></Song>
+    <PlayList :playList="playListList" v-if="orderList.includes('playList')"></PlayList>
+    <Video :videoList="videoList" v-if="orderList.includes('video')"></Video>
+    <SimQuery :simQuery="sim_queryList" v-if="orderList.includes('sim_query')"></SimQuery>
+    <Artist :artist="artistList" v-if="orderList.includes('artist')"></Artist>
+    <Album :album="albumList" v-if="orderList.includes('album')"></Album>
+    <DjRadio :djRadio="djRadioList" v-if="orderList.includes('djRadio')"></DjRadio>
+    <User :user="userList" v-if="orderList.includes('user')"></User>
   </div>
 </template>
 
@@ -17,6 +19,8 @@ import Video from './components/video'
 import SimQuery from './components/simQuery'
 import Artist from './components/artist'
 import Album from './components/album'
+import DjRadio from './components/djRadio'
+import User from './components/user'
 import api from '@/api'
 export default {
   name: '',
@@ -32,12 +36,14 @@ export default {
     Video,
     SimQuery,
     Artist,
-    Album
+    Album,
+    DjRadio,
+    User
   },
   data () {
     return {
       // 这个搜索结果都包含哪些部分
-      orderList: {},
+      orderList: [],
       // 查看同名歌曲
       songList: {},
       // 查看全部歌单
@@ -89,8 +95,8 @@ export default {
           this.$store.commit('SET_LOAD')
           console.log(this.songList)
         }
-      }).catch(error => {
-        console.log(error)
+      }).catch(err => {
+        console.log(err)
       })
     }
   }
@@ -98,7 +104,7 @@ export default {
 </script>
 
 <style lang='less' scoped>
-@import url('//at.alicdn.com/t/font_1380711_2y3lrembltl.css');
+@import url('//at.alicdn.com/t/font_1380711_51fxen37om.css');
 .wrapper{
   box-sizing: border-box;
   padding: 0 0.23rem;

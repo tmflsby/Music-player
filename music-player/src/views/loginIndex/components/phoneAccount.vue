@@ -138,6 +138,8 @@ export default {
           })
         }
         this.flag = true
+      }).catch(err => {
+        console.log(err)
       })
     },
     /**
