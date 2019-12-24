@@ -1,13 +1,26 @@
 <!-- 展示全部歌手 -->
 <template>
-  <div>
-    展示全部歌手
-  </div>
+  <TitleFooter title="歌手" :more="artist.more" :moreText="artist.moreText">
+    <Interchangeable v-for="(item, index) in artist.artists" :key="index" :artist="true"
+    :ImgUrl="item.img1v1Url" :name="item.name" :isIn="item.accountId"
+    ></Interchangeable>
+  </TitleFooter>
 </template>
 
 <script>
+import TitleFooter from '../titleFooter'
+import Interchangeable from '../interchangeable'
 export default {
-  name: 'Aritist'
+  name: 'Aritist',
+  components: {
+    TitleFooter,
+    Interchangeable
+  },
+  props: {
+    artist: {
+      type: Object
+    }
+  }
 }
 </script>
 

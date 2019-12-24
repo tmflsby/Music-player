@@ -4,6 +4,9 @@
     <Song :songList="songList"></Song>
     <PlayList :playList="playListList"></PlayList>
     <Video :videoList="videoList"></Video>
+    <SimQuery :simQuery="sim_queryList"></SimQuery>
+    <Artist :artist="artistList"></Artist>
+    <Album :album="albumList"></Album>
   </div>
 </template>
 
@@ -11,6 +14,9 @@
 import Song from './components/song'
 import PlayList from './components/playList'
 import Video from './components/video'
+import SimQuery from './components/simQuery'
+import Artist from './components/artist'
+import Album from './components/album'
 import api from '@/api'
 export default {
   name: '',
@@ -23,7 +29,10 @@ export default {
   components: {
     Song,
     PlayList,
-    Video
+    Video,
+    SimQuery,
+    Artist,
+    Album
   },
   data () {
     return {
@@ -89,7 +98,7 @@ export default {
 </script>
 
 <style lang='less' scoped>
-@import url('//at.alicdn.com/t/font_1380711_rfnnbzvm09i.css');
+@import url('//at.alicdn.com/t/font_1380711_2y3lrembltl.css');
 .wrapper{
   box-sizing: border-box;
   padding: 0 0.23rem;

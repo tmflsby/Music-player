@@ -39,7 +39,7 @@ export default {
 <style lang='less' scoped>
 @import url('~@/assets/styles/global.less');
 .list-global{
-  margin-top: 0.26rem;
+  margin-top: 0.36rem;
   .title{
     display: flex;
     justify-content: space-between;
