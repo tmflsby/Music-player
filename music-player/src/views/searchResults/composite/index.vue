@@ -2,11 +2,15 @@
 <template>
   <div class="wrapper">
     <Song :songList="songList"></Song>
+    <PlayList :playList="playListList"></PlayList>
+    <Video :videoList="videoList"></Video>
   </div>
 </template>
 
 <script>
 import Song from './components/song'
+import PlayList from './components/playList'
+import Video from './components/video'
 import api from '@/api'
 export default {
   name: '',
@@ -17,7 +21,9 @@ export default {
     }
   },
   components: {
-    Song
+    Song,
+    PlayList,
+    Video
   },
   data () {
     return {
@@ -83,7 +89,7 @@ export default {
 </script>
 
 <style lang='less' scoped>
-@import url('//at.alicdn.com/t/font_1380711_hgcpetr0qxo.css');
+@import url('//at.alicdn.com/t/font_1380711_rfnnbzvm09i.css');
 .wrapper{
   box-sizing: border-box;
   padding: 0 0.23rem;
