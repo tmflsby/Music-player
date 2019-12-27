@@ -52,10 +52,17 @@ export default {
   [mutationTypes.ACCOUNT_UID] (state, id) {
     state.accountUid = id
   },
+  // 设置搜索展示页面的loading图标
   [mutationTypes.SET_LOAD] (state) {
     state.load = false
   },
   [mutationTypes.RETURN_LOAD] (state) {
     state.load = true
+  },
+  /**
+   * 设置搜索展示页标签导航条
+   */
+  [mutationTypes.SET_LINK_PAGE] (state, page) {
+    state.linkPage = page
   }
 }

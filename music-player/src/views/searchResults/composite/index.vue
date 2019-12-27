@@ -1,18 +1,22 @@
 <!-- 综合页面 -->
 <template>
   <div class="wrapper">
-    <Song :songList="songList" v-if="orderList.includes('song')"></Song>
-    <PlayList :playList="playListList" v-if="orderList.includes('playList')"></PlayList>
-    <Video :videoList="videoList" v-if="orderList.includes('video')"></Video>
-    <SimQuery :simQuery="sim_queryList" v-if="orderList.includes('sim_query')"></SimQuery>
-    <Artist :artist="artistList" v-if="orderList.includes('artist')"></Artist>
-    <Album :album="albumList" v-if="orderList.includes('album')"></Album>
-    <DjRadio :djRadio="djRadioList" v-if="orderList.includes('djRadio')"></DjRadio>
-    <User :user="userList" v-if="orderList.includes('user')"></User>
+    <div v-if="!info">
+      <Song :songList="songList" :keyword="keywords" v-if="orderList.includes('song')"></Song>
+      <PlayList :playList="playListList" :keyword="keywords" v-if="orderList.includes('playList')"></PlayList>
+      <Video :videoList="videoList" :keyword="keywords" v-if="orderList.includes('video')"></Video>
+      <SimQuery :simQuery="sim_queryList" :keyword="keywords" v-if="orderList.includes('sim_query')"></SimQuery>
+      <Artist :artist="artistList" :keyword="keywords" v-if="orderList.includes('artist')"></Artist>
+      <Album :album="albumList" :keyword="keywords" v-if="orderList.includes('album')"></Album>
+      <DjRadio :djRadio="djRadioList" :keyword="keywords" v-if="orderList.includes('djRadio')"></DjRadio>
+      <User :user="userList" :keyword="keywords" v-if="orderList.includes('user')"></User>
+    </div>
+    <PageErrorInfo :info="info" :keywords="keywords"></PageErrorInfo>
   </div>
 </template>
 
 <script>
+import PageErrorInfo from '@/base/pageErrorInfo'
 import Song from './components/song'
 import PlayList from './components/playList'
 import Video from './components/video'
@@ -38,7 +42,8 @@ export default {
     Artist,
     Album,
     DjRadio,
-    User
+    User,
+    PageErrorInfo
   },
   data () {
     return {
@@ -59,7 +64,8 @@ export default {
       // 查看全部电台
       djRadioList: {},
       // 查看全部用户
-      userList: {}
+      userList: {},
+      info: false
     }
   },
   watch: {
@@ -93,10 +99,15 @@ export default {
           this.djRadioList = djRadio
           this.userList = user
           this.$store.commit('SET_LOAD')
-          console.log(this.songList)
+          // 没有信息展示
+          if (this.orderList.length === 0) {
+            this.info = true
+          }
         }
-      }).catch(err => {
-        console.log(err)
+      }).catch(error => {
+        this.$store.commit('SET_LOAD')
+        this.info = true
+        console.log(error)
       })
     }
   }
@@ -104,9 +115,10 @@ export default {
 </script>
 
 <style lang='less' scoped>
-@import url('//at.alicdn.com/t/font_1380711_51fxen37om.css');
 .wrapper{
   box-sizing: border-box;
   padding: 0 0.23rem;
+  height: 87vh;
+  overflow-y: scroll;
 }
 </style>

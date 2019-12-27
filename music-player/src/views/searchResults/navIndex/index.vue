@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper pd23">
+  <div class="wrapper pd23" ref="navs">
       <!-- 使用 replace 它不会向 history 添加新记录 -->
     <router-link class="nav-list" v-for="(item, index) in list" :key="index" :to="item.path" replace>
       {{ item.text }}
@@ -8,14 +8,19 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import Bus from '@/assets/Bus'
 export default {
   name: 'NavIndex',
   data () {
     return {
       linkPage: '',
-      list: []
+      list: [],
+      toLink: ['composite', 'song', 'video', 'artist', 'album', 'playList', 'djRadio', 'user']
     }
+  },
+  computed: {
+    ...mapGetters({ page: 'LINK_PAGE' })
   },
   mounted () {
     // 页面刷新时通过 params 获取关键字
@@ -38,6 +43,13 @@ export default {
       Bus.$on('push', key => {
         this.linkPage = key
       })
+    },
+    handleScroll (index) {
+      this.$refs.navs.scrollLeft = index * 85
+    },
+    getPage (val) {
+      let index = this.toLink.indexOf(val)
+      this.handleScroll(index)
     }
   },
   /**
@@ -75,6 +87,16 @@ export default {
           text: '用户'
         }
       ]
+    },
+    page (val) {
+      /**
+       * 获取到当前要跳转的路由页
+       * 寻找下标
+       * 0 : 0
+       * 1 : 85
+       * 2 : 170
+       */
+      this.getPage(val)
     }
   }
 }

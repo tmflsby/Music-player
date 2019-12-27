@@ -2,8 +2,8 @@
   <div>
     <SearchInput :keyword="key"></SearchInput>
     <NavIndex></NavIndex>
-    <PageLoading v-show="load"></PageLoading>
     <router-view v-show="!load" :keywords="key"></router-view>
+    <PageLoading v-show="load"></PageLoading>
   </div>
 </template>
 
@@ -45,6 +45,7 @@ export default {
 </script>
 
 <style lang='less' scoped>
+@import url('//at.alicdn.com/t/font_1380711_5p2kgyidw5.css');
 @import url('~@/assets/styles/global.less');
 .el-button--info{
   background: #fff;

@@ -21,10 +21,14 @@ export default {
 @import url('~@/assets/styles/global.less');
 .container{
   display: flex;
-  position: fixed;
-  top: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
+  justify-content: center;
+  height: 1rem;
+  line-height: 1rem;
+  z-index: 999;
+  // position: fixed;
+  // top: 2rem;
+  // left: 50%;
+  // transform: translateX(-50%);
 }
 .page-loading {
   display: flex;

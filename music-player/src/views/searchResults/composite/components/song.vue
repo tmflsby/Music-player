@@ -1,6 +1,7 @@
 <!-- 展示全部歌曲 -->
 <template>
-  <TitleFooter title="单曲" :songList="true" :more="songList.more" :moreText="songList.moreText">
+  <TitleFooter title="单曲" :songList="true" :more="songList.more"
+  :moreText="songList.moreText" linkPage="song" :keyW="keyword">
     <ul class="song-group">
       <li class="list-item" v-for="(item, index) in songList.songs" :key="index">
         <div class="song-info">
@@ -20,12 +21,15 @@
 </template>
 
 <script>
-import TitleFooter from '../titleFooter'
+import TitleFooter from '@/base/titleFooter'
 export default {
   name: 'Song',
   props: {
     songList: {
       type: Object
+    },
+    keyword: {
+      type: String
     }
   },
   components: {
@@ -47,6 +51,7 @@ export default {
       flex-direction: column;
       .song-name {
         height: 0.4rem;
+        width: 6rem;
         line-height: 0.4rem;
         .ellipsis();
       }

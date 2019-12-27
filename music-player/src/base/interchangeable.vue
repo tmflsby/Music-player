@@ -30,8 +30,10 @@
         </p>
         <!-- 专辑展示 -->
         <p class="album" v-if="artists">
-          <span class="album-art" v-for="(item, index) in artists" :key="index">
-            {{item.name}}
+          <span>
+            <span class="album-art" v-for="(item, index) in artists" :key="index">
+              {{item.name}}
+            </span>
           </span>
           <span class="time">
             {{durationms | setYear}}
@@ -261,6 +263,9 @@ export default {
         &:last-child::after{
           content: "";
         }
+      }
+      .time{
+        margin-left: 0.13rem;
       }
       .song-num {
         margin-right: 0.13rem;

@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import TitleFooter from '../titleFooter'
+import TitleFooter from '@/base/titleFooter'
 export default {
   name: 'SimQuery',
   components: {

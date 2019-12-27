@@ -31,7 +31,9 @@ export default {
       showList: false,
       // 将 history 存入 vuex
       history: [],
-      placeholder: ''
+      placeholder: '',
+      // 防抖定时器
+      time: null
     }
   },
   props: {
@@ -162,16 +164,23 @@ export default {
     },
     /**
      * 根据搜索内容展示搜索建议列表
+     * 使用防抖
      */
     setSearchList (keywords) {
-      api.suggestSearchFn(keywords).then(res => {
-        const data = res.data
-        if (data.code === 200) {
-          this.searchList = data.result.allMatch
-        }
-      }).catch(err => {
-        console.log(err)
-      })
+      if (this.time) {
+        clearTimeout(this.time)
+        this.time = null
+      }
+      this.time = setTimeout(() => {
+        api.suggestSearchFn(keywords).then(res => {
+          const data = res.data
+          if (data.code === 200) {
+            this.searchList = data.result.allMatch
+          }
+        }).catch(err => {
+          console.log(err)
+        })
+      }, 50)
     },
     /**
      * 获取历史搜索记录

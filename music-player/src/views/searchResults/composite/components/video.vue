@@ -1,6 +1,6 @@
 <!-- 展示全部视频 -->
 <template>
-  <TitleFooter title="视频" :more="videoList.more" :moreText="videoList.moreText">
+  <TitleFooter title="视频" :more="videoList.more" :moreText="videoList.moreText" linkPage="video" :keyW="keyword">
     <Interchangeable  :videoList="true" v-for="(item, index) in videoList.videos" :key="index" :ImgUrl="item.coverUrl"
     :name="item.title" :durationms="item.durationms" :nicknames="item.creator" :playTime="item.playTime"
     ></Interchangeable>
@@ -8,8 +8,8 @@
 </template>
 
 <script>
-import TitleFooter from '../titleFooter'
-import Interchangeable from '../interchangeable'
+import TitleFooter from '@/base/titleFooter'
+import Interchangeable from '@/base/interchangeable'
 export default {
   name: 'Video',
   components: {
@@ -19,6 +19,9 @@ export default {
   props: {
     videoList: {
       type: Object
+    },
+    keyword: {
+      type: String
     }
   }
 }

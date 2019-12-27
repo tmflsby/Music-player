@@ -3,6 +3,12 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
+// Uncaught (in promise) NavigationDuplicated {_name: "NavigationDuplicated"}的解决方法
+const originalPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push (location) {
+  return originalPush.call(this, location).catch(err => err)
+}
+
 const routes = [
   {
     /**
@@ -63,42 +69,42 @@ const routes = [
       {
         // 综合页面
         path: '/composite/:id',
-        component: () => import('../views/searchResults/composite')
+        component: () => import('@/views/searchResults/composite')
       },
       {
         // 单曲页面
         path: '/song/:id',
-        component: () => import('../views/searchResults/songIndex')
+        component: () => import('@/views/searchResults/songIndex')
       },
       {
         // 视频页面
         path: '/video/:id',
-        component: () => import('../views/searchResults/videoIndex')
+        component: () => import('@/views/searchResults/videoIndex')
       },
       {
         // 歌手页面
         path: '/artist/:id',
-        component: () => import('../views/searchResults/artistIndex')
+        component: () => import('@/views/searchResults/artistIndex')
       },
       {
         // 专辑页面
         path: '/album/:id',
-        component: () => import('../views/searchResults/albumIndex')
+        component: () => import('@/views/searchResults/albumIndex')
       },
       {
         // 歌单页面
         path: '/playList/:id',
-        component: () => import('../views/searchResults/playListIndex')
+        component: () => import('@/views/searchResults/playListIndex')
       },
       {
         // 主播电台页面
         path: '/djRadio/:id',
-        component: () => import('../views/searchResults/djRadioIndex')
+        component: () => import('@/views/searchResults/djRadioIndex')
       },
       {
         // 用户页面
         path: '/user/:id',
-        component: () => import('../views/searchResults/userIndex')
+        component: () => import('@/views/searchResults/userIndex')
       }
     ]
   }

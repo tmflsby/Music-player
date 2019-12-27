@@ -4,12 +4,12 @@
     <div class="title">
       <span class="title-content">{{title}}</span>
       <span class="smallTag" v-if="songList">
-        <i class="result bofang"></i>
+        <i class="result cbofang"></i>
         播放全部
       </span>
     </div>
       <slot></slot>
-      <div class="more" v-if="more" >
+      <div class="more" v-if="more" @click="toLink" >
       {{moreText}}<i class="result youjiantou"></i>
       </div>
   </div>
@@ -31,6 +31,24 @@ export default {
     },
     songList: {
       type: Boolean
+    },
+    linkPage: {
+      type: String
+    },
+    keyW: {
+      type: String
+    }
+  },
+  methods: {
+    toLink () {
+      /**
+       * 点击的时候把要跳转的页面传到state中，
+       * 标签导航组件获取到当前的state。根据index值计算出要滚动的距离
+       */
+      this.$store.commit('SET_LINK_PAGE', this.linkPage)
+      this.$router.push({
+        path: `/${this.linkPage}/${this.keyW}`
+      })
     }
   }
 }
