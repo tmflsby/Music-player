@@ -1,21 +1,25 @@
 <!-- 综合页面 -->
 <template>
-  <div class="wrapper">
-    <div v-if="!info">
-      <Song :songList="songList" :keyword="keywords" v-if="orderList.includes('song')"></Song>
-      <PlayList :playList="playListList" :keyword="keywords" v-if="orderList.includes('playList')"></PlayList>
-      <Video :videoList="videoList" :keyword="keywords" v-if="orderList.includes('video')"></Video>
-      <SimQuery :simQuery="sim_queryList" :keyword="keywords" v-if="orderList.includes('sim_query')"></SimQuery>
-      <Artist :artist="artistList" :keyword="keywords" v-if="orderList.includes('artist')"></Artist>
-      <Album :album="albumList" :keyword="keywords" v-if="orderList.includes('album')"></Album>
-      <DjRadio :djRadio="djRadioList" :keyword="keywords" v-if="orderList.includes('djRadio')"></DjRadio>
-      <User :user="userList" :keyword="keywords" v-if="orderList.includes('user')"></User>
+  <div class="wrapper pd23">
+    <div v-show="!load">
+      <div v-if="!info">
+        <Song :songList="songList" :keyword="keywords" v-if="orderList.includes('song')"></Song>
+        <PlayList :playList="playListList" :keyword="keywords" v-if="orderList.includes('playList')"></PlayList>
+        <Video :videoList="videoList" :keyword="keywords" v-if="orderList.includes('video')"></Video>
+        <SimQuery :simQuery="sim_queryList" :keyword="keywords" v-if="orderList.includes('sim_query')"></SimQuery>
+        <Artist :artist="artistList" :keyword="keywords" v-if="orderList.includes('artist')"></Artist>
+        <Album :album="albumList" :keyword="keywords" v-if="orderList.includes('album')"></Album>
+        <DjRadio :djRadio="djRadioList" :keyword="keywords" v-if="orderList.includes('djRadio')"></DjRadio>
+        <User :user="userList" :keyword="keywords" v-if="orderList.includes('user')"></User>
+      </div>
+      <PageErrorInfo :info="info" :keywords="keywords"></PageErrorInfo>
     </div>
-    <PageErrorInfo :info="info" :keywords="keywords"></PageErrorInfo>
+    <PageLoading v-show="load"></PageLoading>
   </div>
 </template>
 
 <script>
+import PageLoading from '@/base/pageLoading'
 import PageErrorInfo from '@/base/pageErrorInfo'
 import Song from './components/song'
 import PlayList from './components/playList'
@@ -43,7 +47,8 @@ export default {
     Album,
     DjRadio,
     User,
-    PageErrorInfo
+    PageErrorInfo,
+    PageLoading
   },
   data () {
     return {
@@ -65,7 +70,8 @@ export default {
       djRadioList: {},
       // 查看全部用户
       userList: {},
-      info: false
+      info: false,
+      load: true
     }
   },
   watch: {
@@ -98,14 +104,14 @@ export default {
           this.albumList = album
           this.djRadioList = djRadio
           this.userList = user
-          this.$store.commit('SET_LOAD')
+          this.load = false
           // 没有信息展示
           if (this.orderList.length === 0) {
             this.info = true
           }
         }
       }).catch(error => {
-        this.$store.commit('SET_LOAD')
+        this.load = false
         this.info = true
         console.log(error)
       })
@@ -115,10 +121,5 @@ export default {
 </script>
 
 <style lang='less' scoped>
-.wrapper{
-  box-sizing: border-box;
-  padding: 0 0.23rem;
-  height: 87vh;
-  overflow-y: scroll;
-}
+@import url('~@/assets/styles/global.less');
 </style>

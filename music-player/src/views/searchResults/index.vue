@@ -2,15 +2,13 @@
   <div>
     <SearchInput :keyword="key"></SearchInput>
     <NavIndex></NavIndex>
-    <router-view v-show="!load" :keywords="key"></router-view>
-    <PageLoading v-show="load"></PageLoading>
+    <router-view :keywords="key" style="height: 87vh; overflow-y: scroll;"></router-view>
   </div>
 </template>
 
 <script>
 import NavIndex from './navIndex'
 import SearchInput from '@/base/searchInput'
-import PageLoading from '@/base/pageLoading'
 import { mapGetters } from 'vuex'
 export default {
   name: 'SearchResults',
@@ -21,7 +19,6 @@ export default {
   },
   components: {
     SearchInput,
-    PageLoading,
     NavIndex
   },
   computed: {

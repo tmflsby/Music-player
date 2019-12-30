@@ -1,10 +1,13 @@
 <!-- 歌单页面 -->
 <template>
   <div class="wrapper pd23">
-    <Interchangeable v-for="(item, index) in allSongListList" :key="index" :songList="true" :ImgUrl="item.coverImgUrl"
-    :name="item.name" :trackCount="item.trackCount" :nickname="item.creator.nickname" :playCount="item.playCount"
-    ></Interchangeable>
-    <PageErrorInfo :info="info" :keywords="keywords"></PageErrorInfo>
+    <div v-show="!load">
+      <Interchangeable v-for="(item, index) in allSongListList" :key="index" :songList="true" :ImgUrl="item.coverImgUrl"
+      :name="item.name" :trackCount="item.trackCount" :nickname="item.creator.nickname" :playCount="item.playCount"
+      ></Interchangeable>
+      <PageErrorInfo :info="info" :keywords="keywords"></PageErrorInfo>
+    </div>
+    <PageLoading v-show="load"></PageLoading>
  </div>
 </template>
 
@@ -12,16 +15,19 @@
 import api from '@/api'
 import PageErrorInfo from '@/base/pageErrorInfo'
 import Interchangeable from '@/base/interchangeable'
+import PageLoading from '@/base/pageLoading'
 export default {
   name: 'PlayListIndex',
   components: {
     PageErrorInfo,
-    Interchangeable
+    Interchangeable,
+    PageLoading
   },
   data () {
     return {
       allSongListList: [],
-      info: false
+      info: false,
+      load: true
     }
   },
   props: {
@@ -48,7 +54,7 @@ export default {
           } else {
             this.allSongListList = data.result.playlists
           }
-          this.$store.commit('SET_LOAD')
+          this.load = false
         }
       }).catch(error => {
         console.log(error)
@@ -60,8 +66,5 @@ export default {
 
 <style lang='less' scoped>
 @import url('~@/assets/styles/global.less');
-.wrapper{
-  height: 87vh;
-  overflow-y: scroll;
-}
+
 </style>

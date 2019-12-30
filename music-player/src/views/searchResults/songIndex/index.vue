@@ -1,21 +1,24 @@
 <!-- 单曲页面 -->
 <template>
   <div class="wrapper pd23" @scroll="handleScroll">
-    <div v-if="!info">
-      <div class="title">
-        <span>
-          <i class="result cbofang"></i>
-          播放全部
-        </span>
+    <div v-show="!load">
+      <div v-if="!info">
+        <div class="title">
+          <span>
+            <i class="result cbofang"></i>
+            播放全部
+          </span>
+        </div>
+        <div class="song-group">
+          <SongList v-for="(item, index) in allSongList" :key="index" :songName="item.name"
+          :artists="item.artists" :albumName="item.album.name"
+          ></SongList>
+        </div>
+        <PageLoading v-show="scroll"></PageLoading>
       </div>
-      <div class="song-group">
-        <SongList v-for="(item, index) in allSongList" :key="index" :songName="item.name"
-        :artists="item.artists" :albumName="item.album.name"
-        ></SongList>
-      </div>
-      <PageLoading v-show="scroll"></PageLoading>
+      <PageErrorInfo :info="info" :keywords="keywords"></PageErrorInfo>
     </div>
-    <PageErrorInfo :info="info" :keywords="keywords"></PageErrorInfo>
+    <PageLoading v-show="load"></PageLoading>
   </div>
 </template>
 
@@ -24,7 +27,6 @@ import api from '@/api'
 import PageErrorInfo from '@/base/pageErrorInfo'
 import PageLoading from '@/base/pageLoading'
 import SongList from '@/base/songList'
-
 export default {
   name: 'SongIndex',
   components: {
@@ -37,7 +39,8 @@ export default {
       allSongList: [],
       offset: 0,
       scroll: false,
-      info: false
+      info: false,
+      load: true
     }
   },
   props: {
@@ -59,14 +62,14 @@ export default {
           } else {
             this.allSongList = data.result.songs
           }
-          this.$store.commit('SET_LOAD')
+          this.load = false
           this.scroll = false
           if (data.result.songCount === 0) {
             this.info = true
           }
         }
       }).catch(error => {
-        this.$store.commit('SET_LOAD')
+        this.load = false
         this.info = true
         console.log(error)
       })
@@ -88,8 +91,6 @@ export default {
 <style lang='less' scoped>
 @import url('~@/assets/styles/global.less');
 .wrapper{
-  height: 87vh;
-  overflow-y: scroll;
   .title{
     margin: 0.23rem 0 ;
     font-size: 0.3rem;

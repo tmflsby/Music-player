@@ -5,20 +5,16 @@
       <div class="recommended">新碟</div>
       <div class="square">更多新碟</div>
     </div>
-    <ul class="song-group">
-      <li class="song-list" v-for="(item, index) in dishList" :key="index">
-        <div class="list-img">
-          <img :src="item.picUrl" alt />
-          <!-- 跳转到专辑详情页 -->
-          <router-link class="cover" :to="'/albumPage/'+item.id"></router-link>
-        </div>
-        <div class="list-con">{{item.name}}</div>
-      </li>
-    </ul>
+    <div class="img-col">
+      <ImgCard v-for="(item, index) in dishList" :key="index" :imgUrl="item.picUrl"
+      :dec="item.name" :fine="true" :albumId="item.id"
+      ></ImgCard>
+    </div>
   </div>
 </template>
 
 <script>
+import ImgCard from '@/base/imgCard'
 import api from '@/api'
 export default {
   name: 'NewDish',
@@ -26,6 +22,9 @@ export default {
     return {
       dishList: []
     }
+  },
+  components: {
+    ImgCard
   },
   methods: {
     getDishListInfo () {
@@ -83,33 +82,9 @@ export default {
       margin-left: auto;
     }
   }
-  .song-group {
+  .img-col {
     .flex-between;
     flex-wrap: wrap;
-    .song-list {
-      flex: 0 0 30%;
-      display: flex;
-      flex-direction: column;
-      .list-img {
-        position: relative;
-        width: 2.1rem;
-        height: 0;
-        padding-bottom: 2.1rem;
-        background-color: #aaa;
-        border-radius: @imgBorderRadius;
-        overflow: hidden;
-        img {
-          width: 100%;
-        }
-      }
-      .list-con {
-        margin: 0.2rem 0 0.3rem;
-        font-size: 0.24rem;
-        line-height: 0.3rem;
-        letter-spacing: 1px;
-        .twoLinesEllipsis();
-      }
-    }
   }
 }
 </style>

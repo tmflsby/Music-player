@@ -1,10 +1,13 @@
 <!-- 专辑页面 -->
 <template>
   <div class="wrapper pd23">
-    <Interchangeable v-for="(item, index) in allAlbumList" :key="index" :album="true" :ImgUrl="item.blurPicUrl"
-    :name="item.name" :artists="item.artists" :durationms="item.publishTime"
-    ></Interchangeable>
-    <PageErrorInfo :info="info" :keywords="keywords"></PageErrorInfo>
+    <div v-show="!load">
+      <Interchangeable v-for="(item, index) in allAlbumList" :key="index" :album="true" :ImgUrl="item.blurPicUrl"
+      :name="item.name" :artists="item.artists" :durationms="item.publishTime"
+      ></Interchangeable>
+      <PageErrorInfo :info="info" :keywords="keywords"></PageErrorInfo>
+    </div>
+    <PageLoading v-show="load"></PageLoading>
   </div>
 </template>
 
@@ -12,16 +15,19 @@
 import api from '@/api'
 import PageErrorInfo from '@/base/pageErrorInfo'
 import Interchangeable from '@/base/interchangeable'
+import PageLoading from '@/base/pageLoading'
 export default {
   name: 'AlbumIndex',
   components: {
     PageErrorInfo,
-    Interchangeable
+    Interchangeable,
+    PageLoading
   },
   data () {
     return {
       allAlbumList: [],
-      info: false
+      info: false,
+      load: true
     }
   },
   props: {
@@ -43,13 +49,13 @@ export default {
           } else {
             this.allAlbumList = data.result.albums
           }
-          this.$store.commit('SET_LOAD')
+          this.load = false
           if (res.result.albumCount === 0) {
             this.info = true
           }
         }
       }).catch(error => {
-        this.$store.commit('SET_LOAD')
+        this.load = false
         this.info = true
         console.log(error)
       })
@@ -60,8 +66,5 @@ export default {
 
 <style lang='less' scoped>
 @import url('~@/assets/styles/global.less');
-.wrapper{
-  height: 87vh;
-  overflow-y: scroll;
-}
+
 </style>

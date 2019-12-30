@@ -2,10 +2,8 @@
 <template>
   <TitleFooter title="相关搜索" :more="simQuery.more" :moreText="simQuery.moreText">
     <ul class="sim-group">
-      <li class="sim-list"
-          v-for="(item, index) in simQuery.sim_querys"
-          :key="index">
-          {{item.keyword}}
+      <li class="sim-list" v-for="(item, index) in simQuery.sim_querys" :key="index">
+        {{item.keyword}}
       </li>
     </ul>
  </TitleFooter>

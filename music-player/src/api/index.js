@@ -33,6 +33,21 @@ export default {
     })
   },
   /**
+   * 获取精品歌单
+   * @param {*} limit 取出歌单数量 , 默认为 30
+   * @param {*} before 分页参数,取上一页最后一个歌单的 updateTime 获取下一页数据
+   * @param {*} cat cat: tag
+   */
+  highqualityFn (limit = 30, before, cat) {
+    return axios.get(apiConfig.highquality, {
+      params: {
+        limit,
+        before,
+        cat
+      }
+    })
+  },
+  /**
    * 可获得每日推荐歌单 ( 需要登录 )
    */
   dateRecSongListFn () {

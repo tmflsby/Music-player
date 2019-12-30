@@ -116,24 +116,47 @@ const routes = [
   {
     // 歌单广场页面
     path: '/recommend',
-    component: () => import('@/views/recommend')
-  }, {
+    component: () => import('@/views/recommend'),
+    redirect: '/recommended',
+    children: [
+      {
+        // 推荐歌单
+        path: '/recommended',
+        component: () => import('@/views/recommend/recommended')
+      },
+      {
+        // 精品歌单
+        path: '/fine',
+        component: () => import('@/views/recommend/fine')
+      },
+      {
+        // 通用歌单
+        path: '/general/:id',
+        component: () => import('@/views/recommend/general')
+      }
+    ]
+  },
+  {
     // 排行榜页面
     path: '/rank',
     component: () => import('@/views/rank')
-  }, {
+  },
+  {
     // 电台页面
     path: '/dj',
     component: () => import('@/views/dj')
-  }, {
+  },
+  {
     // 私人 FM 页面
     path: '/personalFm',
     component: () => import('@/views/personalFm')
-  }, {
+  },
+  {
     // 通用歌单展示页面
     path: '/songListPage/:id',
     component: () => import('@/base/songListPage')
-  }, {
+  },
+  {
     // 通用专辑展示页面
     path: '/albumPage/:id',
     component: () => import('@/base/albumPage')

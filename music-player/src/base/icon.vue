@@ -1,6 +1,6 @@
 <!-- 公共图标组件 -->
 <template>
-  <router-link to="linkTo" class="icon-list" :class="{width}" >
+  <router-link :to="linkTo" class="icon-list" :class="{width}" >
     <div class="icon" :class="{bgcolor}">
       <i  :class="icons.icon"></i>
       <slot></slot>
