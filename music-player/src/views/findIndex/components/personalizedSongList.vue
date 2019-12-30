@@ -11,9 +11,9 @@
           <img :src="item.picUrl" alt />
           <span class="play-count">
             <i class="find bofang"></i>
-            {{playCount[index]}}
+            {{item.playcount | playCount}}
           </span>
-          <router-link class="cover" :to="'/playlist?id='+item.id"></router-link>
+          <router-link class="cover" :to="'/songListPage/'+item.id"></router-link>
         </div>
         <div class="list-con">{{item.name}}</div>
       </li>
@@ -22,7 +22,8 @@
 </template>
 
 <script>
-import axios from 'axios'
+import api from '@/api'
+import { mapGetters } from 'vuex'
 export default {
   name: 'PersonalizedSongList',
   data () {
@@ -30,27 +31,28 @@ export default {
       songList: []
     }
   },
-  computed: {
-    // 将播放数的数字转换为以万为单位
-    playCount () {
-      // 用来存放转换后的数据
-      const playCount = []
-      // 遍历当前数据
-      this.songList.forEach(element => {
-        playCount.push(
-          element.playCount > 10000
-            ? element.playCount > 100000000
-              ? ((element.playCount / 100000000).toFixed(1)) + '亿'
-              : Math.floor(element.playCount / 10000) + '万'
-            : element.playCount
-        )
-      })
-      return playCount
+  filters: {
+    playCount (val) {
+      if (!val) {
+        return ''
+      }
+      if (val > 100000000) {
+        val = ((val / 100000000).toFixed(1)) + '亿'
+      } else if (val > 10000) {
+        val = Math.floor(val / 10000) + '万'
+      }
+      return val
     }
   },
+  computed: {
+    ...mapGetters({ loginState: 'LOGIN_STATE' })
+  },
   methods: {
+    /**
+     * 在用户没有登陆的情况下随机取出6项进行展示
+     */
     getSongListInfo () {
-      axios.get('http://140.143.128.100:3000/personalized').then(this.setSongListInfo).catch(err => console.log(err))
+      api.recSongListFn().then(this.setSongListInfo).catch(err => console.log(err))
     },
     setSongListInfo (res) {
       if (res.status === 200 && res.statusText === 'OK') {
@@ -58,6 +60,9 @@ export default {
         this.songList = this.getRandomArrayElements(res, 6)
       }
     },
+    /**
+     * 随机取出数组中的几项
+     */
     getRandomArrayElements (arr, count) {
       let shuffled = arr.slice(0)
       // 克隆一个数组，为了不影响外边的数据
@@ -75,10 +80,30 @@ export default {
         shuffled[i] = temp
       }
       return shuffled.slice(min)
+    },
+    /**
+     * 在用户登陆情况下执行这个函数获取每日推荐歌单
+     */
+    loadGetSongListInfo () {
+      api.dateRecSongListFn()
+        .then(res => {
+          const data = res.data
+          if (data.code === 200) {
+            const arr = data.recommend
+            console.log(arr)
+            this.songList = this.getRandomArrayElements(arr, 6)
+          }
+        })
     }
   },
-  mounted () {
-    this.getSongListInfo()
+  activated () {
+    let getFlag = localStorage.getItem('loginState')
+    if (this.loginState || getFlag) {
+      // 用户已经登录
+      this.loadGetSongListInfo()
+    } else {
+      this.getSongListInfo()
+    }
   }
 }
 </script>

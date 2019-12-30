@@ -107,6 +107,36 @@ const routes = [
         component: () => import('@/views/searchResults/userIndex')
       }
     ]
+  },
+  {
+    // 每日推荐页面
+    path: '/dateRecommend',
+    component: () => import('@/views/dateRecommend')
+  },
+  {
+    // 歌单广场页面
+    path: '/recommend',
+    component: () => import('@/views/recommend')
+  }, {
+    // 排行榜页面
+    path: '/rank',
+    component: () => import('@/views/rank')
+  }, {
+    // 电台页面
+    path: '/dj',
+    component: () => import('@/views/dj')
+  }, {
+    // 私人 FM 页面
+    path: '/personalFm',
+    component: () => import('@/views/personalFm')
+  }, {
+    // 通用歌单展示页面
+    path: '/songListPage/:id',
+    component: () => import('@/base/songListPage')
+  }, {
+    // 通用专辑展示页面
+    path: '/albumPage/:id',
+    component: () => import('@/base/albumPage')
   }
 ]
 
@@ -119,6 +149,8 @@ const router = new VueRouter({
    * 设置 链接激活时使用的 CSS 类名
    * 默认值: "router-link-active"
    * 可以通过路由的构造选项 linkActiveClass 来全局配置。
+   *
+   * 通过设置 meta: { keepAlive: true },来定义一个页面是否需要做缓存
    *
    **************************************************/
   linkActiveClass: 'active'

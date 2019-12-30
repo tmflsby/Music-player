@@ -4,28 +4,15 @@
     <div v-if="!info">
       <div class="title">
         <span>
-          <i class="result bofang"></i>
+          <i class="result cbofang"></i>
           播放全部
         </span>
       </div>
-      <ul class="song-group">
-        <li class="list-item" v-for="(item, index) in allSongList" :key="index">
-          <div class="song-info">
-            <p class="song-name">{{item.name}}</p>
-            <p class="song-art">
-              <span>
-                <span class="artist" v-for="(item, index) in item.artists" :key="index">
-                  {{ item.name }}
-                </span>
-              </span>
-              <span class="album-name">{{ item.album.name }}</span>
-            </p>
-          </div>
-          <div class="icon">
-              <i class="result diandiandian"></i>
-          </div>
-        </li>
-      </ul>
+      <div class="song-group">
+        <SongList v-for="(item, index) in allSongList" :key="index" :songName="item.name"
+        :artists="item.artists" :albumName="item.album.name"
+        ></SongList>
+      </div>
       <PageLoading v-show="scroll"></PageLoading>
     </div>
     <PageErrorInfo :info="info" :keywords="keywords"></PageErrorInfo>
@@ -36,12 +23,14 @@
 import api from '@/api'
 import PageErrorInfo from '@/base/pageErrorInfo'
 import PageLoading from '@/base/pageLoading'
+import SongList from '@/base/songList'
 
 export default {
   name: 'SongIndex',
   components: {
     PageLoading,
-    PageErrorInfo
+    PageErrorInfo,
+    SongList
   },
   data () {
     return {

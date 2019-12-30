@@ -2,9 +2,7 @@
 <template>
   <div class="wrapper">
     <LoginNav>
-      <template v-slot="props">
-        <span class="text">{{props.text}}</span>
-      </template>
+      <span class="text">{{text}}</span>
     </LoginNav>
     <router-view></router-view>
   </div>
@@ -16,6 +14,11 @@ export default {
   name: 'AccountLogin',
   components: {
     LoginNav
+  },
+  data () {
+    return {
+      text: '手机号登录'
+    }
   }
 }
 </script>
@@ -24,9 +27,9 @@ export default {
 .wrapper{
   box-sizing: border-box;
   padding: 0.23rem;
-  .text{
-    font-size: 0.4rem;
-    vertical-align: 5px;
-  }
+}
+.text{
+  font-size: 0.4rem;
+  vertical-align: 5px;
 }
 </style>

@@ -1,0 +1,43 @@
+<template>
+  <SongListPage title="每日推荐" :load="load">
+    <SongList v-for="(item, index) in songLists" :key="index" :songName="item.name"
+    :artists="item.artists" :albumName="item.album.name" :imgUrl="item.album.blurPicUrl"
+    ></SongList>
+  </SongListPage>
+</template>
+
+<script>
+import api from '@/api'
+import SongList from '@/base/songList'
+import SongListPage from '@/base/songListPage'
+export default {
+  name: 'DateRecommend',
+  components: {
+    SongList,
+    SongListPage
+  },
+  data () {
+    return {
+      songLists: [],
+      load: ''
+    }
+  },
+  created () {
+    this.getRecSongs()
+  },
+  methods: {
+    getRecSongs () {
+      api.recSongsFn().then(res => {
+        const data = res.data
+        if (data.code === 200) {
+          this.songLists = data.recommend
+          this.load = false
+        }
+      })
+    }
+  }
+}
+</script>
+
+<style lang='less' scoped>
+</style>

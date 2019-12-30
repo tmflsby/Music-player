@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import api from '@/api'
 export default {
   name: 'FindSwiper',
   data () {
@@ -40,7 +40,7 @@ export default {
   },
   methods: {
     getFindInfo () {
-      axios.get('http://140.143.128.100:3000/banner?type=1').then(this.getFindInfoSuc).catch(err => console.log(err))
+      api.bannerSwiperFn().then(this.getFindInfoSuc).catch(err => console.log(err))
     },
     getFindInfoSuc (res) {
       if (res.status === 200 && res.statusText === 'OK') {

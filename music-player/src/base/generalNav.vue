@@ -3,7 +3,7 @@
   <nav class="phone-nav">
     <i class="phone iconzuojiantou" @click="returnPage"></i>
     <!-- 作用域插槽 -->
-    <slot :text="nav"></slot>
+    <slot></slot>
     <!-- <span class="text">{{ nav }}</span> -->
   </nav>
 </template>
@@ -14,7 +14,7 @@ export default {
   props: {
     nav: {
       type: String,
-      default: '手机号登录'
+      default: ''
     }
   },
   methods: {
@@ -33,10 +33,6 @@ export default {
   .phone{
     font-size: 0.7rem;
     margin-right: 5px;
-  }
-  .text{
-    font-size: 0.4rem;
-    vertical-align: 5px;
   }
 }
 </style>

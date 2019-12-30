@@ -10,10 +10,7 @@
       <!-- </div>
       <span class="icon-text">{{item.text}}</span>
     </div> -->
-     <Icon v-for="(item, index) in findIcons"
-          :icons="item"
-          :bgcolor="bgcolor"
-          :key="index">
+    <Icon v-for="(item, index) in findIcons" :icons="item" :bgcolor="bgcolor" :key="index" :linkTo="item.linkTo">
       <span class="today" v-if="item.text === '每日推荐'" >{{today}}</span>
     </Icon>
   </div>
@@ -57,30 +54,11 @@ export default {
   height: 1.6rem;
   align-items: center;
   padding: 0.2rem 0 0.3rem;
-  // .icon-wrapper {
-  //   .flex-around();
-  //   box-sizing: border-box;
-  //   height: 100%;
-  //   flex-direction: column;
-  //   align-items: center;
-  //   .icon {
-  //     width: @iconWidth*0.9;
-  //     height: @iconWidth*0.9;
-  //     line-height: @iconWidth*0.9;
-  //     .icons();
-  //     .find{
-  //       font-size: 0.5rem;
-  //     }
-      .today{
-        position: absolute;
-        top: 0.1rem;
-        left: 0.34rem;
-        font-size: 0.2rem;
-      }
-  //   }
-  //   .icon-text {
-  //     font-size: @iconText;
-  //   }
-  // }
+    .today{
+      position: absolute;
+      top: 0.1rem;
+      left: 0.35rem;
+      font-size: 0.2rem;
+    }
 }
 </style>

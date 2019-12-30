@@ -1,12 +1,12 @@
 <!-- 公共图标组件 -->
 <template>
-    <div class="icon-list" :class="{width}" >
-      <div class="icon" :class="{bgcolor}">
-        <i  :class="icons.icon"></i>
-        <slot></slot>
-      </div>
-      <span class="icon-text">{{icons.text}}</span>
+  <router-link to="linkTo" class="icon-list" :class="{width}" >
+    <div class="icon" :class="{bgcolor}">
+      <i  :class="icons.icon"></i>
+      <slot></slot>
     </div>
+    <span class="icon-text">{{icons.text}}</span>
+  </router-link>
 </template>
 
 <script>
@@ -21,6 +21,10 @@ export default {
     },
     bgcolor: {
       type: String
+    },
+    linkTo: {
+      type: String,
+      default: 'afa'
     }
   }
 }
@@ -41,6 +45,7 @@ export default {
   justify-content: space-around;
   flex-direction: column;
   align-items: center;
+  color: #000;
   .bgcolor{
     background: linear-gradient(to right, #ff5a4c, #ff1d11);
   }

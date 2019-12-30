@@ -10,7 +10,7 @@
         <div class="list-img">
           <img :src="item.picUrl" alt />
           <!-- 跳转到专辑详情页 -->
-          <router-link class="cover" :to="'/album?id='+item.id"></router-link>
+          <router-link class="cover" :to="'/albumPage/'+item.id"></router-link>
         </div>
         <div class="list-con">{{item.name}}</div>
       </li>
@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import api from '@/api'
 export default {
   name: 'NewDish',
   data () {
@@ -29,7 +29,7 @@ export default {
   },
   methods: {
     getDishListInfo () {
-      axios.get('http://140.143.128.100:3000/top/album?offset=0&limit=20').then(this.setDishListInfo).catch(err => console.log(err))
+      api.newDishFn().then(this.setDishListInfo).catch(err => console.log(err))
     },
     setDishListInfo (res) {
       if (res.status === 200 && res.statusText === 'OK') {
