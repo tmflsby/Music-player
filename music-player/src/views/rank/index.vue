@@ -6,7 +6,7 @@
     </GeneralNav>
     <div class="title">官方榜</div>
     <RankCard v-for="(item, index) in officialRankList" :key="index" :imgUrl="item.coverImgUrl"
-    :tracks="item.tracks" :updateTime="item.updateFrequency"
+    :tracks="item.tracks" :updateTime="item.updateFrequency" :albumId="item.id"
     ></RankCard>
     <div class="title">推荐榜</div>
     <div class="img-col">

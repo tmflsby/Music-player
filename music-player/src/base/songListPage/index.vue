@@ -310,6 +310,7 @@ export default {
             color: #ccc;
             .desc{
               width: 3rem;
+              line-height: 1.2;
               .twoLinesEllipsis()
             }
           }

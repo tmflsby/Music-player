@@ -11,6 +11,8 @@
         </div>
       </div>
     </div>
+    <!-- 跳转到专辑详情页 -->
+    <router-link class="cover" :to="'/albumPage/'+albumId"></router-link>
   </div>
 </template>
 
@@ -26,6 +28,9 @@ export default {
     },
     updateTime: {
       type: String
+    },
+    albumId: {
+      type: Number
     }
   }
 }
