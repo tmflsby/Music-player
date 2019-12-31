@@ -3,10 +3,10 @@
   <div class="wrapper pd23">
     <div class="title">
       <div class="recommended">推荐歌单</div>
-      <div class="square">歌单广场</div>
+      <router-link to="recommend" tag="div" class="square">歌单广场</router-link>
     </div>
     <div class="img-col">
-      <ImgCard v-for="(item, index) in songList" :key="index" :imgUrl="item.picUrl"
+      <ImgCard v-for="(item, index) in songList" :key="index" :imgUrl="item.picUrl || item.coverImgUrl"
       :dec="item.name" :playCount="item.playcount" :albumId="item.id"
       ></ImgCard>
     </div>

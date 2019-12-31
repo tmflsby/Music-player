@@ -1,5 +1,5 @@
 <template>
-  <SongListPage title="每日推荐" :load="load">
+  <SongListPage title="每日推荐" :load="load" :isAlbum="false" height="3.6rem">
     <SongList v-for="(item, index) in songLists" :key="index" :songName="item.name"
     :artists="item.artists" :albumName="item.album.name" :imgUrl="item.album.blurPicUrl"
     ></SongList>

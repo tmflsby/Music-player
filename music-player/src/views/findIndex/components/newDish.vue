@@ -6,8 +6,8 @@
       <div class="square">更多新碟</div>
     </div>
     <div class="img-col">
-      <ImgCard v-for="(item, index) in dishList" :key="index" :imgUrl="item.picUrl"
-      :dec="item.name" :fine="true" :albumId="item.id"
+      <ImgCard v-for="(item, index) in dishList" :key="index"
+      :imgUrl="item.picUrl" :dec="item.name" :albumId="item.id"
       ></ImgCard>
     </div>
   </div>

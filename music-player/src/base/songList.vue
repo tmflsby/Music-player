@@ -3,6 +3,9 @@
     <div class="img-info" v-if="imgUrl">
       <img :src="imgUrl">
     </div>
+    <div class="index" v-if="num">
+      {{ num }}
+    </div>
     <div class="song-info">
       <p class="song-name">{{songName}}</p>
       <p class="song-art">
@@ -37,6 +40,9 @@ export default {
     },
     imgUrl: {
       type: String
+    },
+    num: {
+      type: Number
     }
   }
 }
@@ -49,14 +55,18 @@ export default {
   .flex-between();
   align-items: center;
   height: 1rem;
+  .index{
+    color: #999;
+  }
   .img-info{
     width: 0.7rem;
     height: 0;
-    padding-bottom: 1rem;
+    padding-bottom: 0.7rem;
     margin-right: 0.2rem;
     img{
       border-radius: 0.1rem;
       width: 0.7rem;
+      height: 0.7rem;
     }
   }
   .song-info{

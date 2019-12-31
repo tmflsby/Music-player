@@ -16,6 +16,25 @@ export default {
     return axios.get(apiConfig.recSongs)
   },
   /**
+   * 调用此接口 , 传入歌单 id, 可 以获取对应歌单内的所有的音乐
+   * @param {*} id 歌单 id
+   * @param {*} s 歌单最近的 s 个收藏者,默认5个
+   */
+  albumDetailFn (id, s = 5) {
+    return axios.get(apiConfig.albumDetail, {
+      params: {
+        id,
+        s
+      }
+    })
+  },
+  /**
+   * 调用此接口,可获取所有榜单内容摘要
+   */
+  topListFn () {
+    return axios.get(apiConfig.topList)
+  },
+  /**
    * 请求 可获取推荐歌单
    * ?limit=10&order=hot
    * @param {*} limit 取出数量，默认是30

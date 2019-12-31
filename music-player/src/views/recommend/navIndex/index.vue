@@ -105,7 +105,7 @@ export default {
   .more{
     position: fixed;
     right: 8px;
-    top: 1rem;
+    top: 0.95rem;
     // transform: translateY(-50%);
     .recommend{
       font-size: 0.4rem;

@@ -47,7 +47,7 @@ let findIcons = [{
 }, {
   text: '排行榜',
   icon: 'find paixingbang',
-  linkTo: '/idx'
+  linkTo: '/rank'
 }, {
   text: '电台',
   icon: 'find diantai',
