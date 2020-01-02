@@ -1,10 +1,12 @@
-<!-- 专辑展示页面 -->
+<!-- 歌单展示的通用组件 -->
 <template>
+  <!-- 通过传递参数给子组件，标题，加载样式，图片链接，歌单名称，作者头像，作者昵称，歌单介绍，评论数，分享数，歌单歌曲数，收藏数，是否收藏 -->
   <SongListPage title="歌单" :load="load" :imgUrl="albumInfo.coverImgUrl" :albumTitle="albumInfo.name"
                 :creatorImgUrl="albumInfo.creator.avatarUrl" :author="albumInfo.creator.nickname"
                 :description="albumInfo.description" :commentCount="albumInfo.commentCount"
                 :shareCount="albumInfo.shareCount" :trackCount="albumInfo.trackCount"
                 :subscribedCount="albumInfo.subscribedCount" :subscribed="albumInfo.subscribed">
+    <!-- 这是一个通用的用来展示歌曲列表的组件，通过for循环组件进行渲染  这里使用 index+1 展示了页面的索引值 -->
     <SongList v-for="(item, index) in albumInfo.tracks" :key="index" :songName="item.name"
               :artists="item.ar" :albumName="item.al.name" :num="index + 1">
     </SongList>
@@ -20,15 +22,17 @@ export default {
   name: 'AlbumPage',
   data () {
     return {
-      albumInfo: [],
-      name: 'fafafa',
-      load: true
+      albumInfo: [], // 存储信息的数组
+      load: true // 用来定义是否显示load加载组件
     }
   },
   components: {
     SongList,
     SongListPage
   },
+  /**
+   * 生命钩子函数在实例创建完成后被立即调用
+   */
   created () {
     this.getInfoId()
   },
@@ -44,16 +48,26 @@ export default {
     // next()
   },
   methods: {
+    /**
+     * 获取页面的动态id信息
+     */
     getInfoId () {
       const id = this.$route.params.id
-      console.log(id)
       this.getInfo(id)
     },
+    /**
+     * 根据传入的id获取歌单信息
+     *
+     * 这里需要增加 catch 方法！！！
+     */
     getInfo (id) {
+      // 这里使用的是定义的接口信息，详情查看 api 文件夹
       api.albumDetailFn(id).then(res => {
+        // 接受数据
         const data = res.data
+        // 查看返回数据的 code 状态，如果是 200 的话进行使用
         if (data.code === 200) {
-          console.log(data)
+          // 将请求回来的数据使用，将load 样式关闭l
           this.albumInfo = data.playlist
           this.load = false
         }
@@ -61,9 +75,6 @@ export default {
         console.log(error)
       })
     }
-  },
-  destroyed () {
-    this.albumInfo = []
   }
 }
 </script>

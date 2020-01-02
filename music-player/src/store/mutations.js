@@ -64,5 +64,31 @@ export default {
    */
   [mutationTypes.SET_LINK_PAGE] (state, page) {
     state.linkPage = page
+  },
+  /**
+   * 设置播放状态
+   * @param {*} state state 数据
+   * @param {*} flag 播放状态
+   */
+  [mutationTypes.SET_PLAY_SATE] (state, flag) {
+    state.playState = flag
+  },
+  /**
+   * 设置播放器是大还是小
+   */
+  [mutationTypes.SET_FULL_SCREEN] (state, flag) {
+    state.fullScreen = flag
+  },
+  /**
+   * 设置播放列表信息
+   */
+  [mutationTypes.SET_AUDIO_LIST] (state, list) {
+    state.audioList = list
+  },
+  /**
+   * 设置
+   */
+  [mutationTypes.SET_AUDIO_INDEX] (state, index) {
+    state.audioIngIndex = index
   }
 }

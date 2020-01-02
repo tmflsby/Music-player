@@ -6,9 +6,11 @@
       <router-link to="recommend" tag="div" class="square">歌单广场</router-link>
     </div>
     <div class="img-col">
-      <ImgCard v-for="(item, index) in songList" :key="index" :imgUrl="item.picUrl || item.coverImgUrl"
-      :dec="item.name" :playCount="item.playcount" :albumId="item.id"
-      ></ImgCard>
+      <ImgCard v-for="(item, index) in songList" :key="index"
+               :imgUrl="item.picUrl || item.coverImgUrl"
+               :dec="item.name" :playCount="item.playcount || item.playCount"
+               :albumId="item.id">
+      </ImgCard>
     </div>
   </div>
 </template>
