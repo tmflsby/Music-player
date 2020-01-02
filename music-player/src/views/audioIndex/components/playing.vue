@@ -3,7 +3,7 @@
     <div class="great" :class="{rotate: !isPlay}"></div>
     <div class="circle-bg" ref="circle">
       <div class="song-img">
-        <img :src="imgUrl" alt="">
+        <img v-lazy="imgUrl" alt="">
       </div>
     </div>
   </div>

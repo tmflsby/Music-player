@@ -254,5 +254,18 @@ export default {
         br
       }
     })
+  },
+  /**
+   * 传入歌曲 id, 可获取音乐是否可用
+   * @param {*} id 歌曲 id
+   * @param {*} br 码率,默认设置了 999000 即最大码率,如果要 320k 则可设置为 320000,其他类推
+   */
+  checkSongFn (id, br) {
+    return axios.get(apiConfig.checkSong, {
+      params: {
+        id,
+        br
+      }
+    })
   }
 }

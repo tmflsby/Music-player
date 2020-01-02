@@ -1,9 +1,9 @@
 <template>
   <div class="wrapper">
     <i class="audio audioxunhuan"></i>
-    <i class="audio audioxiayishou1"></i>
+    <i class="audio audioxiayishou1" @click.self="prev"></i>
     <i class="audio" @click="play" :class="{audiobofang1: isPlay, audiobofang: !isPlay}"></i>
-    <i class="audio audioxiayishou"></i>
+    <i class="audio audioxiayishou" @click.self="next"></i>
     <i class="audio audioliebiao"></i>
   </div>
 </template>
@@ -18,6 +18,12 @@ export default {
   methods: {
     play () {
       this.$emit('play')
+    },
+    prev () {
+      this.$emit('prev')
+    },
+    next () {
+      this.$emit('next')
     }
   }
 }
