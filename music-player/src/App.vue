@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import AudioIndex from '@/base/audioIndex'
+import AudioIndex from '@/views/audioIndex'
 import { mapGetters } from 'vuex'
 export default {
   name: 'App',

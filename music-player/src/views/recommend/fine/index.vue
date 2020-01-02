@@ -36,7 +36,7 @@ export default {
   },
   methods: {
     getFineList () {
-      api.highqualityFn().then(res => {
+      api.highQualityFn().then(res => {
         const data = res.data
         if (data.code === 200) {
           this.list = data.playlists

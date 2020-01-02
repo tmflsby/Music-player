@@ -6,12 +6,12 @@
     <!-- 由于歌单页和今日推荐页面的顶部展示区域高度不同，所以通过动态的 height 进行设置 -->
     <div class="container-top" :style="{height}">
       <!-- 通过传值 isAlbum 的布尔值进行判断，因为在今日推荐页面的页面标题是通过滚动显示隐藏的 -->
-      <GeneralNav class="fixed pd23" v-if="!isAlbum">
+      <GeneralNav class="fixed pd23" v-if="!isAlbum" @returnPage="returnPage">
         <!-- 通过改变 listFixed 来控制 title 的显示与否-->
         <span class="text" v-show="listFixed">{{iTitle}}</span>
       </GeneralNav>
       <!-- 这里是在歌单页面时，页面标题是一直显示的 -->
-      <GeneralNav class="fixed pd23" v-if="isAlbum">
+      <GeneralNav class="fixed pd23" v-if="isAlbum" @returnPage="returnPage">
         <span class="text" >{{iTitle}}</span>
       </GeneralNav>
       <!-- 这里包裹的是每日推荐页面额外显示的日期信息 -->
@@ -33,7 +33,10 @@
             </div>
             <span>{{author}}<i class="date-song iconfontjiantou5"></i></span>
           </div>
-          <div class="desc-wrapper"><span class="desc">{{description}}</span><i class="date-song iconfontjiantou5"></i></div>
+          <div class="desc-wrapper">
+            <span class="desc">{{description}}</span>
+            <i class="date-song iconfontjiantou5"></i>
+          </div>
         </div>
       </div>
       <div class="icons">
@@ -165,7 +168,7 @@ export default {
     /**
      * 返回日
      */
-    day: function () {
+    day () {
       const day = new Date().getDate() < 10
         ? '0' + new Date().getDate()
         : new Date().getDate()
@@ -174,7 +177,7 @@ export default {
     /**
      * 返回月份
      */
-    month: function () {
+    month () {
       const month = new Date().getMonth() + 1 < 10
         ? '0' + (new Date().getMonth() + 1)
         : new Date().getMonth() + 1
@@ -182,6 +185,12 @@ export default {
     }
   },
   methods: {
+    /**
+     * 返回上一页
+     */
+    returnPage () {
+      this.$router.go(-1)
+    },
     /**
      * 定义页面滚动事件，
      * 这里需要添加在滚动过程中样式的变化

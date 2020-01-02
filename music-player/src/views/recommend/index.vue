@@ -1,7 +1,7 @@
 <!-- 歌单页面 -->
 <template>
   <div class="wrapper">
-    <GeneralNav class="pd23">
+    <GeneralNav class="pd23" @returnPage="returnPage">
       <span class="text">歌单广场</span>
     </GeneralNav>
     <NavList></NavList>
@@ -19,6 +19,11 @@ export default {
   components: {
     NavList,
     GeneralNav
+  },
+  methods: {
+    returnPage () {
+      this.router.go(-1)
+    }
   }
 }
 </script>
