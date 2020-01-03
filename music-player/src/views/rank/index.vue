@@ -7,20 +7,21 @@
     <div class="title">官方榜</div>
     <RankCard v-for="(item, index) in officialRankList" :key="index"
               :imgUrl="item.coverImgUrl" :tracks="item.tracks"
-              :updateTime="item.updateFrequency" :albumId="item.id">
+              :updateTime="item.updateFrequency" :albumId="item.id"
+              :rank="item.name" @showRankPage="showRankPage">
     </RankCard>
     <div class="title">推荐榜</div>
     <div class="img-col">
       <ImgCard v-for="(item, index) in recommendedRankList" :key="index"
-               :imgUrl="item.coverImgUrl" :dec="item.name"
-               :albumId="item.id" :updateTime="item.updateFrequency">
+               :imgUrl="item.coverImgUrl" :rank="item.name" :albumId="item.id"
+               :updateTime="item.updateFrequency" @showRankPage="showRankPage">
       </ImgCard>
     </div>
     <div class="title">更多榜单</div>
     <div class="img-col">
       <ImgCard v-for="(item, index) in moreRankList" :key="index"
-               :imgUrl="item.coverImgUrl" :dec="item.name"
-               :albumId="item.id" :updateTime="item.updateFrequency">
+               :imgUrl="item.coverImgUrl" :rank="item.name" :albumId="item.id"
+               :updateTime="item.updateFrequency" @showRankPage="showRankPage">
       </ImgCard>
     </div>
   </div>
@@ -62,6 +63,9 @@ export default {
     },
     returnPage () {
       this.$router.go(-1)
+    },
+    showRankPage (id) {
+      this.$router.push(`/albumPage/${id}`)
     }
   }
 }

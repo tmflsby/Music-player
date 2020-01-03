@@ -2,8 +2,8 @@
   <div class="wrapper pd23">
     <div class="img-col" v-show="!load">
       <ImgCard v-for="(item, index) in list" :key="index" :playCount="item.playCount"
-      :imgUrl="item.coverImgUrl" :dec="item.name"
-      ></ImgCard>
+               :imgUrl="item.coverImgUrl" :dec="item.name" :albumId="item.id">
+      </ImgCard>
     </div>
     <PageLoading v-show="load"></PageLoading>
   </div>

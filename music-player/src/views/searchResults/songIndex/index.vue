@@ -4,15 +4,16 @@
     <div v-show="!load">
       <div v-if="!info">
         <div class="title">
-          <span>
+          <span @click="startPlay">
             <i class="result cbofang"></i>
             播放全部
           </span>
         </div>
         <div class="song-group">
-          <SongList v-for="(item, index) in allSongList" :key="index" :songName="item.name"
-          :artists="item.artists" :albumName="item.album.name"
-          ></SongList>
+          <SongList v-for="(item, index) in allSongList" :key="index"
+                    :songName="item.name" :artists="item.artists" :albumName="item.album.name"
+                    @beginSong="setAudioList(item, index)" :nowSong="item.id === audioSong.id">
+          </SongList>
         </div>
         <PageLoading v-show="scroll"></PageLoading>
       </div>
@@ -27,6 +28,7 @@ import api from '@/api'
 import PageErrorInfo from '@/base/pageErrorInfo'
 import PageLoading from '@/base/pageLoading'
 import SongList from '@/base/songList'
+import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'SongIndex',
   components: {
@@ -49,10 +51,14 @@ export default {
       type: String
     }
   },
+  computed: {
+    ...mapGetters({ audioSong: 'AUDIO_ING_SONG' })
+  },
   created () {
     this.getAllSongList(this.keywords)
   },
   methods: {
+    ...mapActions(['selectPlay', 'startPlayAll']),
     getAllSongList (key, offset) {
       api.searchFn(key, undefined, offset, 1).then((res) => {
         const data = res.data
@@ -83,6 +89,17 @@ export default {
       //   const offset = this.offset += 1
       //   this.getAllSongList(this.keywords, offset)
       // }
+    },
+    setAudioList (item, index) {
+      this.selectPlay({
+        list: this.allSongList,
+        index
+      })
+    },
+    startPlay () {
+      this.startPlayAll({
+        list: this.allSongList
+      })
     }
   }
 }

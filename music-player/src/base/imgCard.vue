@@ -1,5 +1,5 @@
 <template>
-  <div class="img-card" :style="{width, marginTop:top}">
+  <div class="img-card" @click="searchRank(rank)" :style="{width, marginTop:top}">
     <span class="tag" v-if="playCount" >
       <i class="card cardbofang"></i>
       {{playCount | setPlayCount}}
@@ -16,7 +16,7 @@
     <div class="img-con" :style="{width, paddingBottom: width}">
       <img v-lazy="imgUrl" class="image">
       <!-- 跳转到专辑详情页 -->
-      <router-link class="cover" :to="'/albumPage/'+albumId"></router-link>
+      <!-- <router-link class="cover"  @click="toAlbum(albumId)" :to="'/albumPage/'+albumId"></router-link>-->
     </div>
       <div class="dec">
         {{ dec }}
@@ -59,6 +59,74 @@ export default {
     },
     albumId: {
       type: Number
+    },
+    rank: {
+      type: String
+    }
+  },
+  methods: {
+    /**
+     * 给图片卡片注册点击事件
+     *
+     * 当没有rank时，查看是否有albumId，如果有跳转歌单页面
+     * 如果有rank时说明是排行榜页面，跳转到排行榜页面
+     */
+    searchRank (rank) {
+      if (!rank) {
+        if (this.albumId) {
+          this.$router.push(`/albumPage/${this.albumId}`)
+          return
+        }
+        return
+      }
+      switch (rank) {
+        case '云音乐新歌榜':
+          rank = 0
+          break
+        case '云音乐热歌榜':
+          rank = 1
+          break
+        case '网易原创歌曲榜':
+          rank = 2
+          break
+        case '云音乐飙升榜':
+          rank = 3
+          break
+        case '云音乐说唱榜':
+          rank = 23
+          break
+        case '云音乐ACG音乐榜':
+          rank = 22
+          break
+        case 'KTV唛榜':
+          rank = 7
+          break
+        case 'iTunes榜':
+          rank = 8
+          break
+        case '日本Oricon周榜':
+          rank = 10
+          break
+        case 'Hit FM Top榜':
+          rank = 9
+          break
+        case '台湾Hito排行榜':
+          rank = 20
+          break
+        case 'Beatport全球电子舞曲榜':
+          rank = 21
+          break
+        case '法国 NRJ Vos Hits 周榜':
+          rank = 20
+          break
+        case 'UK排行榜':
+          rank = 5
+          break
+        case '美国Billboard周榜':
+          rank = 6
+          break
+      }
+      this.$emit('showRankPage', rank)
     }
   },
   filters: {

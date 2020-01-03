@@ -87,15 +87,15 @@ export default {
      * 当前歌曲变化，首先查看能不能播放
      * 将一些歌曲信息设置
      */
-    audioSong: function (val, oldVal) {
+    audioSong (val, oldVal) {
       if (val.id === oldVal.id) {
         return
       }
       this.$nextTick(() => {
         this.checkSong(val.id)
-        this.allTime = val.duration
-        this.artist = val.album ? val.album.artists : ''
-        this.imgUrl = val.album ? val.album.picUrl : ''
+        this.allTime = val.duration ? val.duration : val.dt ? val.dt : ''
+        this.artist = val.album ? val.album.artists : val.ar ? val.ar : ''
+        this.imgUrl = val.album ? val.album.picUrl : val.al ? val.al.picUrl : ''
         this.name = val.name
       })
     }

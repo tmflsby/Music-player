@@ -6,7 +6,8 @@
                 :author="albumInfo.creator ? albumInfo.creator.nickname : ''"
                 :description="albumInfo.description" :commentCount="albumInfo.commentCount"
                 :shareCount="albumInfo.shareCount" :trackCount="albumInfo.trackCount"
-                :subscribedCount="albumInfo.subscribedCount" :subscribed="albumInfo.subscribed">
+                :subscribedCount="albumInfo.subscribedCount" :subscribed="albumInfo.subscribed"
+                @startPlayAll="startPlay">
     <!-- 这是一个通用的用来展示歌曲列表的组件，通过for循环组件进行渲染  这里使用 index+1 展示了页面的索引值 -->
     <SongList v-for="(item, index) in albumInfo.tracks" :key="index" :songName="item.name"
               :artists="item.ar" :albumName="item.al.name" :num="index + 1"
@@ -42,13 +43,17 @@ export default {
     this.getInfoId()
   },
   activated () {
-    // 在当前路由改变，但是该组件被复用时调用
-    // 举例来说，对于一个带有动态参数的路径 /foo/:id，在 /foo/1 和 /foo/2 之间跳转的时候，
-    // 由于会渲染同样的 Foo 组件，因此组件实例会被复用。而这个钩子就会在这个情况下被调用。
-    // 可以访问组件实例 `this`
     this.load = true
     let id = this.$route.params.id
-    this.getInfo(id)
+    if (id > 50) {
+      this.getInfo(id)
+      return
+    }
+    if (!Number(id)) {
+      this.$router.go(-1)
+      return
+    }
+    this.getRankInfo(id)
   },
   methods: {
     /**
@@ -56,7 +61,12 @@ export default {
      */
     getInfoId () {
       const id = this.$route.params.id
-      this.getInfo(id)
+      if (id > 50) {
+        console.log(id)
+        this.getInfo(id)
+      } else {
+        this.getRankInfo(id)
+      }
     },
     /**
      * 根据传入的id获取歌单信息
@@ -72,7 +82,20 @@ export default {
         if (data.code === 200) {
           // 将请求回来的数据使用，将load 样式关闭l
           this.albumInfo = data.playlist
-          console.log(this.albumInfo)
+          this.load = false
+        }
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+    /**
+     * 获取排行榜信息
+     */
+    getRankInfo (id) {
+      api.rankListFn(id).then(res => {
+        const data = res.data
+        if (data.code === 200) {
+          this.albumInfo = data.playlist
           this.load = false
         }
       }).catch(error => {
@@ -85,7 +108,18 @@ export default {
         index
       })
     },
-    ...mapActions(['selectPlay'])
+    startPlay () {
+      this.startPlayAll({
+        list: this.albumInfo.tracks
+      })
+    },
+    ...mapActions(['selectPlay', 'startPlayAll'])
+  },
+  destroyed () {
+    // 存储信息的数组
+    this.albumInfo = []
+    // 用来定义是否显示load加载组件
+    this.load = true
   }
 }
 </script>

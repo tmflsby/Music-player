@@ -42,11 +42,11 @@
       <div class="icons">
         <div class="comments">
           <i class="date-song pinglun"></i>
-          <span>{{commentCount}}</span>
+          <span>{{commentCount | setNum}}</span>
         </div>
         <div class="comments">
           <i class="date-song fenxiang"></i>
-          <span>{{shareCount}}</span>
+          <span>{{shareCount | setNum}}</span>
         </div>
         <div class="comments">
           <i class="date-song xiazai"></i>
@@ -72,7 +72,7 @@
         多选
       </span>
       <span class="collection" v-if="isAlbum">
-        + 收藏({{subscribedCount}})
+        + 收藏({{subscribedCount | setNum}})
       </span>
     </div>
     <div class="list-info" v-show="!load" :style="{ marginTop: top}">
@@ -184,6 +184,19 @@ export default {
         ? '0' + (new Date().getMonth() + 1)
         : new Date().getMonth() + 1
       return month
+    }
+  },
+  filters: {
+    setNum (val) {
+      if (!val) {
+        return ''
+      }
+      if (val > 100000000) {
+        val = ((val / 100000000).toFixed(1)) + '亿'
+      } else if (val > 10000) {
+        val = ((val / 10000).toFixed(1)) + '万'
+      }
+      return val
     }
   },
   methods: {
@@ -303,7 +316,8 @@ export default {
     .text {
       font-size: 0.4rem;
       vertical-align: 5px;
-      line-height: .7rem;
+      width: 8rem;
+      .ellipsis();
     }
     .album-info {
       padding-top: 1.5rem;

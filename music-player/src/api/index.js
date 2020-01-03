@@ -67,6 +67,17 @@ export default {
     })
   },
   /**
+   * 调用此接口 , 传入数字 rank, 可获取不同排行榜
+   * @param {*} rank 排行榜 rank
+   */
+  rankListFn (rank) {
+    return axios.get(apiConfig.rankList, {
+      params: {
+        idx: rank
+      }
+    })
+  },
+  /**
    * 可获得每日推荐歌单 ( 需要登录 )
    */
   dateRecSongListFn () {

@@ -5,7 +5,8 @@
       <i class="result yinliang" v-show="nowSong"></i>
     </div>
     <div class="index" v-if="num">
-      {{ num }}
+      <span v-show="!nowSong">{{ num }}</span>
+      <i class="result yinliang" v-show="nowSong"></i>
     </div>
     <div class="song-info">
       <p class="song-name">{{songName}}</p>
@@ -68,6 +69,9 @@ export default {
   .index{
     color: #999;
   }
+  .yinliang{
+    color: @bgcolor;
+  }
   .img-info{
     width: 0.7rem;
     height: 0;
@@ -80,7 +84,6 @@ export default {
       height: 0.7rem;
     }
     yinliang{
-      color:@bgcolor;
       position: absolute;
       left: 50%;
       top: 50%;

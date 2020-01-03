@@ -2,18 +2,23 @@
 <template>
   <div class="wrapper pd23">
     <i class="iconfont zuojiantou" @click="returnPage"></i>
-    <input class="search" type="text" :placeholder="placeholder" ref="inputs" v-model.trim="keywords" autofocus="autofocus" @focus="displayList">
+    <input class="search" type="text" :placeholder="placeholder" ref="inputs"
+           v-model.trim="keywords" autofocus="autofocus" @focus="displayList">
     <i v-show="keywords.length" @click="clearInp" class="iconfont guanbi" :style="{right: Right}"></i>
     <i class="iconfont geshou" v-if="page"></i>
+    <!-- 搜索建议列表信息 -->
     <div class="floatInfo" v-show="showList">
       <ul>
-        <li  @click="searchKey(keywords) " class="blue border-bottom">搜索<span class="text">"{{ keywords }}"</span></li>
+        <li  @click="searchKey(keywords) " class="blue border-bottom">
+          搜索<span class="text">"{{ keywords }}"</span>
+        </li>
         <li @click="searchKey(item.keyword)" class="border-bottom" v-for="(item, index) in searchList" :key="index">
           <i class="iconfont sousuo"></i>
           {{ item.keyword }}
         </li>
       </ul>
     </div>
+    <!-- 蒙层，当搜索建议显示，蒙层显示，控制列表不能滚动 -->
     <div class="mask" v-show="showList" @click="hideList"></div>
   </div>
 </template>
@@ -26,7 +31,6 @@ export default {
   data () {
     return {
       searchList: [],
-      default: '',
       keywords: '',
       showList: false,
       // 将 history 存入 vuex
@@ -137,9 +141,7 @@ export default {
       api.defaultSearchFn().then(res => {
         const data = res.data
         if (data.code === 200) {
-          this.default = data.data.showKeyword
-          // this.$refs.inputs.setAttribute('placeholder', this.default)
-          this.placeholder = this.default
+          this.placeholder = data.data.showKeyword
         }
       }).catch(err => {
         console.log(err)
@@ -204,7 +206,7 @@ export default {
      * 向导航标签传递key值
      */
     pushKey (key) {
-      this.$nextTick(function () {
+      this.$nextTick(() => {
         // DOM 现在更新了
         Bus.$emit('push', key)
       })

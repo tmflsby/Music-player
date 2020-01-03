@@ -7,8 +7,8 @@
     </div>
     <div class="img-col">
       <ImgCard v-for="(item, index) in list" :key="index" :playCount="item.playCount"
-      :imgUrl="item.coverImgUrl" :dec="item.name" :fine="true"
-      ></ImgCard>
+               :imgUrl="item.coverImgUrl" :dec="item.name" :fine="true" :albumId="item.id">
+      </ImgCard>
       </div>
     </div>
    <PageLoading v-show="load"></PageLoading>

@@ -25,10 +25,10 @@ export default {
   height: 1rem;
   line-height: 1rem;
   z-index: 999;
-  position: fixed;
-  top: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
+  /*position: fixed;*/
+  /*top: 2rem;*/
+  /*left: 50%;*/
+  /*transform: translateX(-50%);*/
 }
 .page-loading {
   display: flex;

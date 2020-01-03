@@ -4,7 +4,7 @@
     <SongList v-for="(item, index) in songLists" :key="index"
               :songName="item.name" :artists="item.artists"
               :albumName="item.album.name" :imgUrl="item.album.blurPicUrl"
-              @click.native="setAudioList(item, index)"
+              @beginSong="setAudioList(item, index)"
               :nowSong="item.id === audioSong.id">
     </SongList>
   </SongListPage>
