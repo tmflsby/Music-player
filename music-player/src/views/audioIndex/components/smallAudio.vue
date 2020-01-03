@@ -1,5 +1,5 @@
 <template>
-  <div class="bottom-audio">
+  <div class="bottom-audio" @click="returnFull">
     <div class="img-info" ref="circle">
       <img :src="imgUrl" alt="">
     </div>
@@ -9,7 +9,7 @@
     </div>
     <div class="button">
       <span class="circle">
-        <i class="audio" @click="play" :class="{audiozantingtingzhi: isPlay, audiobofang2: !isPlay}"></i>
+        <i class="audio" @click.stop="play" :class="{audiozantingtingzhi: isPlay, audiobofang2: !isPlay}"></i>
       </span>
       <i class="audio audioliebiao"></i>
     </div>
@@ -37,6 +37,9 @@ export default {
   methods: {
     play () {
       this.$emit('play')
+    },
+    returnFull () {
+      this.$emit('returnFull')
     }
   },
   watch: {

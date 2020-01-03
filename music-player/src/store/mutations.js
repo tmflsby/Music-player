@@ -104,5 +104,11 @@ export default {
    */
   [mutationTypes.SET_AUDIO_MODE] (state, mode) {
     state.mode = mode
+  },
+  /**
+   * 设置当前是否显示转盘播放页面
+   */
+  [mutationTypes.SET_PLAYING_SHOW] (state, boolean) {
+    state.playingShow = boolean
   }
 }
