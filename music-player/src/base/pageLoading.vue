@@ -2,10 +2,10 @@
 <template>
   <div class="container">
     <div class="page-loading">
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
+      <span class="span"></span>
+      <span class="span"></span>
+      <span class="span"></span>
+      <span class="span"></span>
     </div>
     努力加载中...
   </div>
@@ -25,10 +25,10 @@ export default {
   height: 1rem;
   line-height: 1rem;
   z-index: 999;
-  // position: fixed;
-  // top: 2rem;
-  // left: 50%;
-  // transform: translateX(-50%);
+  position: fixed;
+  top: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
 }
 .page-loading {
   display: flex;
@@ -36,21 +36,22 @@ export default {
   align-items: center;
   justify-content: space-between;
   width: 0.5rem;
+  margin-right: 0.2rem;
   span {
     width: 0.05rem;
     height: 0.2rem;
     background-color: @bgcolor;
   }
-  span:nth-of-type(1) {
+  .span:nth-of-type(1) {
     animation: grow 1s -0.45s ease-in-out infinite;
   }
-  span:nth-of-type(2) {
+  .span:nth-of-type(2) {
     animation: grow 1s -0.3s ease-in-out infinite;
   }
-  span:nth-of-type(3) {
+  .span:nth-of-type(3) {
     animation: grow 1s -0.15s ease-in-out infinite;
   }
-  span:nth-of-type(4) {
+  .span:nth-of-type(4) {
     animation: grow 1s ease-in-out infinite;
   }
   @keyframes grow {

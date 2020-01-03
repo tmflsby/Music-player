@@ -4,7 +4,8 @@
     <SongList v-for="(item, index) in songLists" :key="index"
               :songName="item.name" :artists="item.artists"
               :albumName="item.album.name" :imgUrl="item.album.blurPicUrl"
-              @click.native="setAudioList(item, index)">
+              @click.native="setAudioList(item, index)"
+              :nowSong="item.id === audioSong.id">
     </SongList>
   </SongListPage>
 </template>
@@ -13,7 +14,7 @@
 import api from '@/api'
 import SongList from '@/base/songList'
 import SongListPage from '@/base/songListPage'
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'DateRecommend',
   components: {
@@ -25,6 +26,9 @@ export default {
       songLists: [],
       load: ''
     }
+  },
+  computed: {
+    ...mapGetters({ audioSong: 'AUDIO_ING_SONG' })
   },
   created () {
     this.getRecSongs()

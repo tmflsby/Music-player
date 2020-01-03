@@ -2,14 +2,15 @@
 <template>
   <!-- 通过传递参数给子组件，标题，加载样式，图片链接，歌单名称，作者头像，作者昵称，歌单介绍，评论数，分享数，歌单歌曲数，收藏数，是否收藏 -->
   <SongListPage title="歌单" :load="load" :imgUrl="albumInfo.coverImgUrl" :albumTitle="albumInfo.name"
-                :creatorImgUrl="albumInfo.creator.avatarUrl" :author="albumInfo.creator.nickname"
+                :creatorImgUrl="albumInfo.creator ? albumInfo.creator.avatarUrl : ''"
+                :author="albumInfo.creator ? albumInfo.creator.nickname : ''"
                 :description="albumInfo.description" :commentCount="albumInfo.commentCount"
                 :shareCount="albumInfo.shareCount" :trackCount="albumInfo.trackCount"
                 :subscribedCount="albumInfo.subscribedCount" :subscribed="albumInfo.subscribed">
     <!-- 这是一个通用的用来展示歌曲列表的组件，通过for循环组件进行渲染  这里使用 index+1 展示了页面的索引值 -->
     <SongList v-for="(item, index) in albumInfo.tracks" :key="index" :songName="item.name"
               :artists="item.ar" :albumName="item.al.name" :num="index + 1"
-              @beginSong="setAudioList(item, index)">
+              @beginSong="setAudioList(item, index)" :nowSong="item.id === audioSong.id">
     </SongList>
   </SongListPage>
 </template>
@@ -18,7 +19,7 @@
 import SongList from '@/base/songList'
 import SongListPage from '@/base/songListPage'
 import api from '@/api'
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'AlbumPage',
   data () {
@@ -30,6 +31,9 @@ export default {
   components: {
     SongList,
     SongListPage
+  },
+  computed: {
+    ...mapGetters({ audioSong: 'AUDIO_ING_SONG' })
   },
   /**
    * 生命钩子函数在实例创建完成后被立即调用

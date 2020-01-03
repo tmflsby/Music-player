@@ -94,8 +94,8 @@ export default {
       this.$nextTick(() => {
         this.checkSong(val.id)
         this.allTime = val.duration
-        this.artist = val.album.artists
-        this.imgUrl = val.album.picUrl
+        this.artist = val.album ? val.album.artists : ''
+        this.imgUrl = val.album ? val.album.picUrl : ''
         this.name = val.name
       })
     }
@@ -140,26 +140,24 @@ export default {
      * 查看歌曲是否可以播放
      */
     checkSong (id) {
-      api.checkSongFn(id)
-        .then(res => {
-          const data = res.data
-          // 当可以播放的时候请求歌曲url
-          if (data.success) {
-            this.canSong = true
-            this.getSongUrl(id)
-            this.getSongLyric(id)
-          }
-        })
-        .catch(err => {
-          if (err) {
-            console.log(err)
-            // 不能播放的时候选择下一首进行播放
-            this.canSong = false
-            this.readySong = true
-            this.nextSong()
-            this.readySong = true
-          }
-        })
+      api.checkSongFn(id).then(res => {
+        const data = res.data
+        // 当可以播放的时候请求歌曲url
+        if (data.success) {
+          this.canSong = true
+          this.getSongUrl(id)
+          this.getSongLyric(id)
+        }
+      }).catch(err => {
+        if (err) {
+          console.log(err)
+          // 不能播放的时候选择下一首进行播放
+          this.canSong = false
+          this.readySong = true
+          this.nextSong()
+          this.readySong = true
+        }
+      })
     },
     /**
      * 创建歌词数组

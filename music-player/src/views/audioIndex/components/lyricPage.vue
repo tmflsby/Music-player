@@ -34,7 +34,7 @@ export default {
     }
   },
   filters: {
-    setWords: function (val) {
+    setWords (val) {
       if (val && val.words) {
         return val.words
       }
@@ -47,7 +47,6 @@ export default {
       const midHeight = 4
       // 每次移动是移动一行歌词的高度，一行歌词高度是 0.6 rem
       let top = midHeight - index * 0.6
-      console.log(top, index)
       if (top > 0) {
         // top 不能为正数
         top = 0

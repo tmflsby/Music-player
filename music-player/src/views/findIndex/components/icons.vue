@@ -10,7 +10,8 @@
       <!-- </div>
       <span class="icon-text">{{item.text}}</span>
     </div> -->
-    <Icon v-for="(item, index) in findIcons" :icons="item" :bgcolor="bgcolor" :key="index" :linkTo="item.linkTo">
+    <Icon v-for="(item, index) in findIcons" :key="index"
+          :linkTo="item.linkTo" :icons="item" :bgcolor="bgcolor">
       <span class="today" v-if="item.text === '每日推荐'" >{{today}}</span>
     </Icon>
   </div>
@@ -57,7 +58,7 @@ export default {
     .today{
       position: absolute;
       top: 0.1rem;
-      left: 0.35rem;
+      left: 0.3rem;
       font-size: 0.2rem;
     }
 }

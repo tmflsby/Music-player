@@ -6,9 +6,9 @@
       <div class="square">更多新碟</div>
     </div>
     <div class="img-col">
-      <ImgCard v-for="(item, index) in dishList" :key="index"
-      :imgUrl="item.picUrl" :dec="item.name" :albumId="item.id"
-      ></ImgCard>
+      <ImgCard v-for="(item, index) in dishList" :key="index" :imgUrl="item.picUrl"
+               :dec="item.name" :albumId="item.id">
+      </ImgCard>
     </div>
   </div>
 </template>
@@ -32,10 +32,8 @@ export default {
     },
     setDishListInfo (res) {
       if (res.status === 200 && res.statusText === 'OK') {
-        console.log(res)
         res = res.data.albums
         this.dishList = this.getRandomArrayElements(res, 3)
-        console.log(this.dishList)
       }
     },
     getRandomArrayElements (arr, count) {

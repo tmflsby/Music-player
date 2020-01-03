@@ -1,7 +1,8 @@
 <template>
   <div class="list-item" @click="startSong">
     <div class="img-info" v-if="imgUrl">
-      <img :src="imgUrl">
+      <img :src="imgUrl" v-show="!nowSong">
+      <i class="result yinliang" v-show="nowSong"></i>
     </div>
     <div class="index" v-if="num">
       {{ num }}
@@ -43,6 +44,10 @@ export default {
     },
     num: {
       type: Number
+    },
+    nowSong: {
+      type: Boolean,
+      default: false
     }
   },
   methods: {
@@ -55,7 +60,7 @@ export default {
 
 <style lang='less' scoped>
 @import url('~@/assets/styles/global.less');
-@import url('//at.alicdn.com/t/font_1380711_5p2kgyidw5.css');
+@import url('//at.alicdn.com/t/font_1380711_qksi58kw6ae.css');
 .list-item{
   .flex-between();
   align-items: center;
@@ -68,10 +73,18 @@ export default {
     height: 0;
     padding-bottom: 0.7rem;
     margin-right: 0.2rem;
+    position: relative;
     img{
       border-radius: 0.1rem;
       width: 0.7rem;
       height: 0.7rem;
+    }
+    yinliang{
+      color:@bgcolor;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate3d(-50%, -50%, 0);
     }
   }
   .song-info{
