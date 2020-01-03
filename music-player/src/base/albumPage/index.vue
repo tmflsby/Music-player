@@ -8,7 +8,8 @@
                 :subscribedCount="albumInfo.subscribedCount" :subscribed="albumInfo.subscribed">
     <!-- 这是一个通用的用来展示歌曲列表的组件，通过for循环组件进行渲染  这里使用 index+1 展示了页面的索引值 -->
     <SongList v-for="(item, index) in albumInfo.tracks" :key="index" :songName="item.name"
-              :artists="item.ar" :albumName="item.al.name" :num="index + 1">
+              :artists="item.ar" :albumName="item.al.name" :num="index + 1"
+              @beginSong="setAudioList(item, index)">
     </SongList>
   </SongListPage>
 </template>
@@ -17,7 +18,7 @@
 import SongList from '@/base/songList'
 import SongListPage from '@/base/songListPage'
 import api from '@/api'
-
+import { mapActions } from 'vuex'
 export default {
   name: 'AlbumPage',
   data () {
@@ -42,10 +43,8 @@ export default {
     // 由于会渲染同样的 Foo 组件，因此组件实例会被复用。而这个钩子就会在这个情况下被调用。
     // 可以访问组件实例 `this`
     this.load = true
-    // console.log(to, from)
     let id = this.$route.params.id
     this.getInfo(id)
-    // next()
   },
   methods: {
     /**
@@ -69,12 +68,20 @@ export default {
         if (data.code === 200) {
           // 将请求回来的数据使用，将load 样式关闭l
           this.albumInfo = data.playlist
+          console.log(this.albumInfo)
           this.load = false
         }
       }).catch(error => {
         console.log(error)
       })
-    }
+    },
+    setAudioList (item, index) {
+      this.selectPlay({
+        list: this.albumInfo.tracks,
+        index
+      })
+    },
+    ...mapActions(['selectPlay'])
   }
 }
 </script>

@@ -61,8 +61,10 @@
     </div>
     <div class="title pd23" :class="{listFixed}">
       <span>
-        <i class="date-song cbofang"></i>
-        播放全部
+        <span @click="beginAudio">
+          <i class="date-song cbofang"></i>
+          播放全部
+        </span>
         <span class="count" v-if="isAlbum">(共{{trackCount}}首)</span>
       </span>
       <span v-if="!isAlbum">
@@ -185,6 +187,9 @@ export default {
     }
   },
   methods: {
+    beginAudio () {
+      this.$emit('startPlayAll')
+    },
     /**
      * 返回上一页
      */

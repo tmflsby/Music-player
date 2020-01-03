@@ -267,5 +267,16 @@ export default {
         br
       }
     })
+  },
+  /**
+   * 传入音乐 id 可获得对应音乐的歌词 ( 不需要登录 )
+   * @param {*} id 歌曲id
+   */
+  songLyricFn (id) {
+    return axios.get(apiConfig.songLyric, {
+      params: {
+        id
+      }
+    })
   }
 }

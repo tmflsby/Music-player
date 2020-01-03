@@ -86,9 +86,23 @@ export default {
     state.audioList = list
   },
   /**
-   * 设置
+   * 设置索引
    */
   [mutationTypes.SET_AUDIO_INDEX] (state, index) {
     state.audioIngIndex = index
+  },
+  /**
+   * 设置当前播放列表
+   */
+  [mutationTypes.SET_PLAY_LIST] (state, list) {
+    state.playList = list
+  },
+  /**
+   * 设置当前播放模式
+   * @param {*} state state数据
+   * @param {*} mode 模式索引
+   */
+  [mutationTypes.SET_AUDIO_MODE] (state, mode) {
+    state.mode = mode
   }
 }

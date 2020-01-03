@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <i class="audio audioxunhuan"></i>
+    <i class="audio" :class="[modeClass]" @click.self="changeMode"></i>
     <i class="audio audioxiayishou1" @click.self="prev"></i>
     <i class="audio" @click="play" :class="{audiobofang1: isPlay, audiobofang: !isPlay}"></i>
     <i class="audio audioxiayishou" @click.self="next"></i>
@@ -13,9 +13,27 @@ import { mapGetters } from 'vuex'
 export default {
   name: 'FunctionButton',
   computed: {
-    ...mapGetters({ isPlay: 'PLAY_STATE' })
+    ...mapGetters({ isPlay: 'PLAY_STATE' }),
+    modeClass () {
+      return this.toggleIcon()
+    }
+  },
+  props: {
+    mode: {
+      type: Number
+    }
   },
   methods: {
+    toggleIcon () {
+      switch (this.mode) {
+        case 0: // 列表循环
+          return 'audioxunhuan'
+        case 1: // 单曲循环
+          return 'audiosingle-loop'
+        case 2: // 随机播放
+          return 'audiosuiji'
+      }
+    },
     play () {
       this.$emit('play')
     },
@@ -24,6 +42,9 @@ export default {
     },
     next () {
       this.$emit('next')
+    },
+    changeMode () {
+      this.$emit('changeMode')
     }
   }
 }

@@ -11,9 +11,12 @@ const getters = {
   FULL_SCREEN: state => state.fullScreen,
   AUDIO_LIST: state => state.audioList,
   AUDIO_ING_INDEX: state => state.audioIngIndex,
+  PLAY_LIST: state => state.playList,
+  MODE: state => state.mode,
+  OFFSET_LYRIC: state => state.offsetLyric,
   AUDIO_ING_SONG: state => {
     // 返回当前播放歌曲对象的信息
-    return state.audioList[state.audioIngIndex] || {}
+    return state.playList[state.audioIngIndex] || {}
   }
 }
 

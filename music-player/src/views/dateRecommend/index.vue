@@ -1,5 +1,6 @@
 <template>
-  <SongListPage title="每日推荐" :load="load" :isAlbum="false" height="3.6rem">
+  <SongListPage title="每日推荐" :load="load" :isAlbum="false"
+                height="3.6rem" @startPlayAll="startPlay">
     <SongList v-for="(item, index) in songLists" :key="index"
               :songName="item.name" :artists="item.artists"
               :albumName="item.album.name" :imgUrl="item.album.blurPicUrl"
@@ -38,14 +39,18 @@ export default {
         }
       })
     },
-    ...mapActions(['selectPlay']),
+    startPlay () {
+      this.startPlayAll({
+        list: this.songLists
+      })
+    },
     setAudioList (item, index) {
-      console.log(111)
       this.selectPlay({
         list: this.songLists,
         index
       })
-    }
+    },
+    ...mapActions(['selectPlay', 'startPlayAll'])
   }
 }
 </script>

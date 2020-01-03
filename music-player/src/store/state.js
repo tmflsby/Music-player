@@ -10,5 +10,8 @@ export default {
   playState: false, // 是否正在播放，
   fullScreen: false, // 是否是全屏展示播放页
   audioList: [], // 用来展示播放列表项
-  audioIngIndex: -1 // 正在播放的这一首歌曲索引
+  playList: [], // 用来存储各种播放模式的列表
+  mode: 0, // 用来记录当前播放模式 0：列表循环，1：单曲循环 2：随机播放
+  audioIngIndex: -1, // 正在播放的这一首歌曲索引
+  offsetLyric: 0 // 设置歌词偏移
 }
