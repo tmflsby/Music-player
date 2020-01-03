@@ -1,19 +1,24 @@
 <template>
-  <div class="audioPage pd23">
-    <GeneralNav class="color" @returnPage="returnPage">
-      <div>
-        <p class="title">{{audioSong.name ? audioSong.name : ''}}</p>
-        <p class="text">
-          <span class="art" v-for="(item, index) in artist" :key="index">
-            {{item.name}}
-          </span>
-        </p>
-      </div>
-    </GeneralNav>
-    <Playing :imgUrl="imgUrl"></Playing>
-    <PlayIcons></PlayIcons>
-    <Bar :allTime="allTime" :time="playTime" :width="progressWidth" @time="changeTime"></Bar>
-    <FunctionButton @play="toggle" @prev="prevSong" @next="nextSong"></FunctionButton>
+  <div class="audioPage">
+    <div class="full pd23" v-show="isFull">
+      <GeneralNav class="color" @returnPage="returnPage">
+        <div>
+          <p class="title">{{name}}</p>
+          <p class="text">
+            <span class="art" v-for="(item, index) in artist" :key="index">
+              {{item.name}}
+            </span>
+          </p>
+        </div>
+      </GeneralNav>
+      <Playing :imgUrl="imgUrl"></Playing>
+      <PlayIcons></PlayIcons>
+      <Bar :allTime="allTime" :time="playTime" :width="progressWidth" @time="changeTime"></Bar>
+      <FunctionButton @play="toggle" @prev="prevSong" @next="nextSong"></FunctionButton>
+    </div>
+    <SmallAudio class="small border-top pd23" v-show="!isFull" :imgUrl="imgUrl"
+                @click="returnFull" @play="toggle" :name="name">
+    </SmallAudio>
     <audio :src="url" ref="audio" autoplay @canplay="ready" @error="error"></audio>
   </div>
 </template>
@@ -25,7 +30,9 @@ import Playing from '@/views/audioIndex/components/playing'
 import PlayIcons from '@/views/audioIndex/components/playIcons'
 import Bar from '@/views/audioIndex/components/bar'
 import FunctionButton from '@/views/audioIndex/components/functionButton'
+import SmallAudio from '@/views/audioIndex/components/smallAudio'
 import { mapGetters, mapMutations } from 'vuex'
+
 export default {
   name: '',
   components: {
@@ -33,7 +40,8 @@ export default {
     Playing,
     PlayIcons,
     Bar,
-    FunctionButton
+    FunctionButton,
+    SmallAudio
   },
   data () {
     return {
@@ -44,7 +52,8 @@ export default {
       artist: [],
       imgUrl: '',
       readySong: false,
-      canSong: true
+      canSong: true,
+      name: ''
     }
   },
   computed: {
@@ -52,7 +61,8 @@ export default {
       audioSong: 'AUDIO_ING_SONG',
       state: 'PLAY_STATE',
       index: 'AUDIO_ING_INDEX',
-      list: 'AUDIO_LIST'
+      list: 'AUDIO_LIST',
+      isFull: 'FULL_SCREEN'
     })
   },
   watch: {
@@ -65,6 +75,7 @@ export default {
       this.allTime = val.duration
       this.artist = val.album.artists
       this.imgUrl = val.album.picUrl
+      this.name = val.name
     }
   },
   methods: {
@@ -108,7 +119,8 @@ export default {
     },
     ...mapMutations({
       setState: 'SET_PLAY_SATE',
-      setIndex: 'SET_AUDIO_INDEX'
+      setIndex: 'SET_AUDIO_INDEX',
+      setFull: 'SET_FULL_SCREEN'
     }),
     /**
      * 播放暂停事件
@@ -122,8 +134,7 @@ export default {
     },
     changeTime (time) {
       const audio = this.$refs.audio
-      const current = time * audio.duration / 100
-      audio.currentTime = current
+      audio.currentTime = time * audio.duration / 100
     },
     /**
      * 上一首歌曲切换
@@ -226,16 +237,19 @@ export default {
       this.progressWidth = val
     },
     returnPage () {
-      console.log(111)
+      this.setFull(false)
+    },
+    returnFull () {
+      this.setFull(true)
     }
   }
 }
 </script>
 
 <style lang='less' scoped>
-  @import url('//at.alicdn.com/t/font_1410851_5avwhgnvef.css');
+  @import url('//at.alicdn.com/t/font_1410851_1kpmn0o6bx5.css');
   @import url('~@/assets/styles/global.less');
-  .audioPage{
+  .full{
     position: absolute;
     top: 0;
     left: 0;
@@ -262,5 +276,13 @@ export default {
         }
       }
     }
+  }
+  .small{
+    position: fixed;
+    width: 100vw;
+    height: 1rem;
+    bottom: 0;
+    z-index: 9999;
+    background-color: #fff;
   }
 </style>
